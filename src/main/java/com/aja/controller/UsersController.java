@@ -29,11 +29,17 @@ import com.aja.serviceImpl.UserServiceImpl;
 public class UsersController {
 
 	@Autowired
-	private UserServiceImpl userService;
-
-	@PostMapping("/register")
-	public ResponseEntity<?> register(@RequestBody Users user) {
-		return ResponseEntity.ok(userService.registerUsers(user));
+	private UserServiceImpl userImpl;
+	
+	@PostMapping()
+	public Users addUser(@RequestBody Users u)
+	{
+		return userImpl.addUser(u);
+	}
+	@GetMapping
+	public List<Users> viewAllUsers()
+	{
+		return userImpl.viewAllUsers();
 	}
 
 	@GetMapping("/all")

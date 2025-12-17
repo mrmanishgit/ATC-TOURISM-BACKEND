@@ -13,13 +13,12 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 @Entity
-
+@Setter
+@Getter
 public class Testimonials {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-
 	private String name;
 	private String rating;
 	private String review;
