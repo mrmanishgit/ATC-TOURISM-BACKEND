@@ -10,6 +10,7 @@ public interface UsersService {
 	    List<Users> getAllUsers();
 	    Users login(String email, String password);
 	    Users updateUser(Long id, Users user);
+	    Users addUser(Users user);
 
 
 }
