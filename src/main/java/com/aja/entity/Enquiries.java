@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 @Entity
+@Setter
+@Getter
 public class Enquiries {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

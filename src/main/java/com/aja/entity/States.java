@@ -1,10 +1,14 @@
 package com.aja.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,5 +21,13 @@ public class States {
     private Long stateId;
 	private String stateName;
 
+	
+//	Relationships
+	
+	@OneToMany(mappedBy = "state",cascade = CascadeType.ALL)
+	private List<Places> places = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "state",cascade = CascadeType.ALL)
+	private List<Packages> packages = new ArrayList<>();
 }
 
