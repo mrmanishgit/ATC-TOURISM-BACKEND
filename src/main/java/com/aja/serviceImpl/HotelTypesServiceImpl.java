@@ -1,7 +1,44 @@
 package com.aja.serviceImpl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.aja.entity.HotelTypes;
+import com.aja.repository.HotelTypesRepo;
 import com.aja.service.HotelTypesService;
 
+@Service
 public class HotelTypesServiceImpl implements HotelTypesService {
+	@Autowired
+	private HotelTypesRepo hotelTypesRepo;
+
+	@Override
+	public HotelTypes saveHotel(HotelTypes hotelTypes) {
+		// TODO Auto-generated method stub
+		return hotelTypesRepo.save(hotelTypes);
+	}
+
+	@Override
+	public List<HotelTypes> getAllEnquiries() {
+		// TODO Auto-generated method stub
+		return hotelTypesRepo.findAll();
+	}
+
+	@Override
+	public HotelTypes getEnquiryById(Long Id) {
+		// TODO Auto-generated method stub
+		return hotelTypesRepo.findById(Id).orElse(null);
+	}
+
+	@Override
+	public HotelTypes updateHoteType(long id, HotelTypes hotelTypes) {
+		// TODO Auto-generated method stub
+		HotelTypes hotelTypes2 = hotelTypesRepo.findById(id).orElse(null);
+		hotelTypes2.setTypeName(hotelTypes.getTypeName());
+		hotelTypes2.setPricePerday(hotelTypes.getPricePerday());
+		return hotelTypesRepo.save(hotelTypes2);
+	}
 
 }
