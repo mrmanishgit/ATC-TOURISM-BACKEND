@@ -2,7 +2,6 @@ package com.aja.service;
 
 import java.util.List;
 
-
 import com.aja.entity.Users;
 
 public interface UsersService {
