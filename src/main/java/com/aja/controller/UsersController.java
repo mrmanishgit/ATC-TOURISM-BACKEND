@@ -22,7 +22,7 @@ public class UsersController {
 	@Autowired
 	private UserServiceImpl userImpl;
 	
-	@PostMapping
+	@PostMapping()
 	public Users addUser(@RequestBody Users u)
 	{
 		return userImpl.addUser(u);
