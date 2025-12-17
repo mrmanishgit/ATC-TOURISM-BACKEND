@@ -1,5 +1,52 @@
 package com.aja.controller;
 
-public class ChatBotFaqController {
+import java.security.PublicKey;
+import java.util.List;
 
-}
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.aja.entity.ChatBotFaq;
+import com.aja.entity.Users;
+import com.aja.serviceImpl.ChatBotFaqServiceImpl;
+
+@RestController
+@RequestMapping("/api/chatbotfaq")
+@CrossOrigin("*")
+public class ChatBotFaqController {
+	
+	@Autowired
+	private ChatBotFaqServiceImpl chatBotFaqServiceImpl;
+	
+	@PostMapping("/add")
+    public ResponseEntity<ChatBotFaq> addFaq(@RequestBody ChatBotFaq faq) {
+        return ResponseEntity.ok(chatBotFaqServiceImpl.savechatBotFaq(faq));
+    }
+	
+	@GetMapping("/all")
+    public List<ChatBotFaq> getAllFaqs() {
+        return chatBotFaqServiceImpl.getAllFaqs();
+    }
+	
+	@GetMapping("/{id}")	
+		public ResponseEntity<ChatBotFaq> getChatById(@PathVariable("id") long ChatBotFaqId){
+			ChatBotFaq chatFaq =chatBotFaqServiceImpl.getFaqById(ChatBotFaqId);
+			return ResponseEntity.ok(chatFaq);
+		}
+	
+	@PutMapping("/update/{id}")
+	public ChatBotFaq updateFaq(@PathVariable Long id, @RequestBody ChatBotFaq chatBotFaq) {
+	    return chatBotFaqServiceImpl.updaBotFaq(id, chatBotFaq);
+	}
+
+	
+	}
+	
