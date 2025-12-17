@@ -27,31 +27,31 @@ public class UsersController {
 	private UserServiceImpl userImpl;
 	
 	@PostMapping()
-	public Users addUser(@RequestBody Users u)
+	public Users getUser(@RequestBody Users u)
 	{
 		return userImpl.addUser(u);
 	}
 	@GetMapping
 	public List<Users> viewAllUsers()
 	{
-		return userImpl.viewAllUsers();
+		return userImpl.getAllUsers();
 	}
 
 	@GetMapping("/all")
 	public List<Users> getAllUsers() {
-		return userService.getAllUsers();
+		return userImpl.getAllUsers();
 
 	}
 
 	@PutMapping("/update/{id}")
 	public Users updateUser(@PathVariable Long id, @RequestBody Users user) {
-		return userService.updateUser(id, user);
+		return userImpl.updateUser(id, user);
 	}
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody UsersRequestDto request) {
 		try {
-			Users user = userService.login(request.getEmail(), request.getPassword());
+			Users user = userImpl.login(request.getEmail(), request.getPassword());
 			return ResponseEntity.ok(user);
 		} catch (RuntimeException ex) {
 			return ResponseEntity.status(401).body(ex.getMessage());

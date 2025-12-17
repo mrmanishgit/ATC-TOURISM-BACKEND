@@ -2,6 +2,7 @@ package com.aja.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aja.entity.Users;
@@ -10,15 +11,15 @@ import com.aja.service.UsersService;
 
 @Service
 public class UserServiceImpl implements UsersService{
-
-	private final UsersRepo userRepository;
+	@Autowired
+	private UsersRepo userRepository;
 	  
     public UserServiceImpl(UsersRepo userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public Users registerUsers(Users user) {
+    public Users addUser(Users user) {
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             throw new RuntimeException("Password and Confirm Password do not match");
@@ -67,6 +68,12 @@ public class UserServiceImpl implements UsersService{
 	    }
 
 	    return user;
+	}
+
+	@Override
+	public Users registerUsers(Users user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
