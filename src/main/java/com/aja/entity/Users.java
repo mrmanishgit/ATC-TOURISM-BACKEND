@@ -20,9 +20,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Setter
+@Table(name = "users")
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
 public class Users{
 	@Id
@@ -61,4 +61,13 @@ public class Users{
 	private List<Payments> payment = new ArrayList<>();
 	
 
+	private String profileImage;
+	@Column(nullable = false)
+	private String password;
+
+	private String confirmPassword;
+
+	private LocalDate dob;
+
+	private LocalDateTime createdAt = LocalDateTime.now();
 }
