@@ -1,5 +1,5 @@
-package com.aja.controller;
+package com.aja.Dto;
 
-public class PackagesController {
+public class PackagesRequestDto {
 
 }
