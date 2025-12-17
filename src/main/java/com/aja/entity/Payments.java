@@ -1,17 +1,12 @@
 package com.aja.entity;
 
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
-
+import java.time.LocalDateTime;
 @Entity
-@Getter
-@Setter
 public class Payments {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +21,5 @@ public class Payments {
 	private Double paidAmount;
 
 	private LocalDateTime paidAt;
+
 }

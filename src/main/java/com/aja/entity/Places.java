@@ -8,8 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+
 public class Places {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +17,7 @@ public class Places {
 	private String placeName;
 
 	private String description;
-
 }
+
+
+
