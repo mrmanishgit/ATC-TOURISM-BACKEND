@@ -7,8 +7,8 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 @Entity
-@Getter
 @Setter
+@Getter
 public class Enquiries {
 	public Long getEnquiryId() {
 		return enquiryId;
