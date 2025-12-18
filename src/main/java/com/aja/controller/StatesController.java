@@ -11,20 +11,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.StatesRequestDto;
+import com.aja.Dto.StatesResponseDto;
 import com.aja.entity.States;
 import com.aja.serviceImpl.StatesServiceImpl;
 
 @RestController
-@RequestMapping("/state")
+@RequestMapping("/api/state")
 public class StatesController {
 	@Autowired
 	private StatesServiceImpl sImpl;
-	@PostMapping
-	public States addState(@RequestBody States s)
+	@PostMapping("/create")
+	public StatesResponseDto addState(@RequestBody StatesRequestDto s)
 	{
 		return sImpl.addState(s);
 	}
-	@GetMapping
+	@GetMapping("/all")
 	public List<States> viewAllStates()
 	{
 		return sImpl.viewAllStates();
