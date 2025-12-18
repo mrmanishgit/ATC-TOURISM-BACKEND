@@ -10,13 +10,13 @@ import lombok.Setter;
 @Setter
 public class BookingsRequestDto {
 
-	 private LocalDate travelDate;
+	private LocalDate travelDate;
 
-	    private Integer noOfAdults;
+	private Integer noOfAdults;
 
-	    private Integer noOfChildren;
+	private Integer noOfChildren;
 
-	    private String bookingStatus;
+	private String bookingStatus;
 
-	    private LocalDateTime createdAt;
+	private LocalDateTime createdAt;
 }
