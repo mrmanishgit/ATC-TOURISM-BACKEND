@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.HotelTypesRequestDto;
+import com.aja.Dto.HotelTypesResponseDto;
 import com.aja.entity.HotelTypes;
 import com.aja.serviceImpl.HotelTypesServiceImpl;
 
@@ -25,7 +27,7 @@ public class HotelTypesController {
 	private HotelTypesServiceImpl hotelTypesServiceImpl;
 
 	@PostMapping("/add")
-	public ResponseEntity<HotelTypes> addHotel(@RequestBody HotelTypes hotelTypes) {
+	public ResponseEntity<HotelTypesResponseDto> addHotel(@RequestBody HotelTypesRequestDto hotelTypes) {
 		return ResponseEntity.ok(hotelTypesServiceImpl.saveHotel(hotelTypes));
 	}
 
