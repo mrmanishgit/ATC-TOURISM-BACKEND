@@ -7,13 +7,13 @@ import com.aja.entity.Users;
 
 public interface ChatBotFaqService {
 
-	ChatBotFaq savechatBotFaq(ChatBotFaq chatBotFaq);
+	public ChatBotFaq savechatBotFaq(ChatBotFaq chatBotFaq);
 
-	List<ChatBotFaq> getAllFaqs();
+	public List<ChatBotFaq> getAllFaqs();
 
-	ChatBotFaq getFaqById(Long faqId);
+	public ChatBotFaq getFaqById(Long faqId);
 	
-	ChatBotFaq updaBotFaq(long id , ChatBotFaq chatBotFaq);
+	public ChatBotFaq updaBotFaq(long id , ChatBotFaq chatBotFaq);
 	
 
 }

@@ -1,9 +1,13 @@
 package com.aja.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +15,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HotelTypes {
-	  public Long getHotelTypeId() {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long hotelTypeId;
+
+	public Long getHotelTypeId() {
 		return hotelTypeId;
 	}
 
@@ -35,12 +43,19 @@ public class HotelTypes {
 		this.pricePerday = pricePerday;
 	}
 
-	  @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long hotelTypeId;
+	public List<Bookings> getBookings() {
+		return bookings;
+	}
 
-	    private String typeName;
+	public void setBookings(List<Bookings> bookings) {
+		this.bookings = bookings;
+	}
 
-	    private Double pricePerday;
+	private String typeName;
+
+	private Double pricePerday;
+	
+	@OneToMany(mappedBy = "hoteltype")
+	private List<Bookings> bookings = new ArrayList<>();
 
 }

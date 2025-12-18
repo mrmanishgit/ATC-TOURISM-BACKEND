@@ -26,7 +26,7 @@ public class UsersController {
 	@Autowired
 	private UserServiceImpl userImpl;
 	
-	@PostMapping()
+	@PostMapping("/add")
 	public Users getUser(@RequestBody Users u)
 	{
 		return userImpl.addUser(u);

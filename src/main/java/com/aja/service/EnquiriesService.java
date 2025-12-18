@@ -6,10 +6,10 @@ import com.aja.entity.Enquiries;
 
 public interface EnquiriesService {
 
-	Enquiries saveEnquiry(Enquiries enquiry);
+	public	Enquiries saveEnquiry(Enquiries enquiry);
 
-	List<Enquiries> getAllEnquiries();
+	public List<Enquiries> getAllEnquiries();
 
-	Enquiries getEnquiryById(Long enquiryId);
+	public Enquiries getEnquiryById(Long enquiryId);
 
 }
