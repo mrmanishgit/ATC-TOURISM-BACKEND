@@ -19,7 +19,7 @@ public class HotelTypes {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long hotelTypeId;
 
-	private String typeName;
+	private String htypeName;
 
 	private Double pricePerday;
 	

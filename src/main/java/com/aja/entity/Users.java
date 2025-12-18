@@ -1,31 +1,24 @@
 package com.aja.entity;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
-@Getter
 @Setter
-@NoArgsConstructor
+@Getter
+@Table(name = "users")
 public class Users{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -35,22 +28,26 @@ public class Users{
 	
 	private String password;
 	
-	@Column(unique=true)
+	private String confirmPassword;
+
+	private String profileImage;
+	
+	private String photoUrl;
+
+	private LocalDate dateOfBirth;
+
+	private LocalDateTime createdAt = LocalDateTime.now();
+	
 	private String email;
 	
-	@NotBlank(message="Enter 10 digits mobile number")
-	private String mobile;
+	private String mobileNo;
 	
-	private LocalDate dateOfBirth;
-	
-	@Enumerated(EnumType.STRING)
 	private IdentityProofType identityProofType;
 	
 	private String identityProofNumber;
 	
-	private String photoUrl;
 	
-	
+
 //	Relationships
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
@@ -63,13 +60,5 @@ public class Users{
 	private List<Payments> payment = new ArrayList<>();
 	
 
-	private String profileImage;
-	@Column(nullable = false)
-	
 
-	private String confirmPassword;
-
-	private LocalDate dob;
-
-	private LocalDateTime createdAt = LocalDateTime.now();
 }

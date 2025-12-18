@@ -1,5 +1,10 @@
 package com.aja.Dto;
 
-public class StatesResponseDto {
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class StatesResponseDto {
+	private String stateName;
 }
