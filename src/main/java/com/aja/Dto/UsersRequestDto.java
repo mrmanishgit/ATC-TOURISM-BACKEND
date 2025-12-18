@@ -21,8 +21,6 @@ public class UsersRequestDto {
 		this.password = password;
 	}
 
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 8a0dc1f6b610a162e57727d0382aa82a72d3f108
+
