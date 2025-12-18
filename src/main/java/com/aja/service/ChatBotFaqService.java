@@ -2,18 +2,19 @@ package com.aja.service;
 
 import java.util.List;
 
+import com.aja.Dto.ChatBotFaqRequestDto;
+import com.aja.Dto.ChatBotFaqResponseDto;
 import com.aja.entity.ChatBotFaq;
-import com.aja.entity.Users;
 
 public interface ChatBotFaqService {
 
-	ChatBotFaq savechatBotFaq(ChatBotFaq chatBotFaq);
+	public ChatBotFaqResponseDto savechatBotFaq(ChatBotFaqRequestDto chatBotFaq);
 
-	List<ChatBotFaq> getAllFaqs();
+	public List<ChatBotFaq> getAllFaqs();
 
-	ChatBotFaq getFaqById(Long faqId);
+	public ChatBotFaq getFaqById(Long faqId);
 	
-	ChatBotFaq updaBotFaq(long id , ChatBotFaq chatBotFaq);
+	public ChatBotFaq updaBotFaq(long id , ChatBotFaq chatBotFaq);
 	
 
 }

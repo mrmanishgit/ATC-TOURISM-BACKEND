@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aja.Dto.UsersRequestDto;
+import com.aja.Dto.UsersResponseDto;
 import com.aja.entity.Users;
 import com.aja.serviceImpl.UserServiceImpl;
 
@@ -27,16 +28,15 @@ public class UsersController {
 	private UserServiceImpl userImpl;
 	
 	@PostMapping()
-	public Users getUser(@RequestBody Users u)
+	public ResponseEntity<UsersResponseDto> getUser(@RequestBody UsersRequestDto u)
 	{
-		return userImpl.registerUsers(u);
-	}
-	@GetMapping
-	public List<Users> viewAllUsers()
-	{
-		return userImpl.getAllUsers();
+		
+		UsersResponseDto uRes = userImpl.registerUsers(u);
+		
+		return  ResponseEntity.ok(uRes);
 	}
 
+	
 	@GetMapping("/all")
 	public List<Users> getAllUsers() {
 		return userImpl.getAllUsers();

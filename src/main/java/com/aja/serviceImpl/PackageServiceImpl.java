@@ -2,9 +2,12 @@ package com.aja.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.PackagesRequestDto;
+import com.aja.Dto.PackagesResponseDto;
 import com.aja.entity.Packages;
 import com.aja.repository.PackagesRepo;
 import com.aja.service.PackageService;
@@ -13,10 +16,18 @@ public class PackageServiceImpl implements PackageService {
 	@Autowired
 	private PackagesRepo pRepo;
 	@Override
-	public Packages addPackage(Packages p) {
-		// TODO Auto-generated method stub
-		Packages ps=pRepo.save(p);
-		return ps;
+	public PackagesResponseDto addPackage(PackagesRequestDto p) {
+		Packages packages = new Packages();
+		
+		BeanUtils.copyProperties(p, packages);
+		
+		Packages packEntity = pRepo.save(packages);
+		
+		PackagesResponseDto packRes = new PackagesResponseDto();
+		
+		BeanUtils.copyProperties(packEntity, packRes);
+		
+		return packRes;
 	}
 
 	@Override
@@ -42,7 +53,12 @@ public class PackageServiceImpl implements PackageService {
 	@Override
 	public Packages getPackage(Long packageId) {
 		// TODO Auto-generated method stub
-		return pRepo.findById(packageId).orElse(null);
+		return null;
 	}
+
+
+	
+
+
 
 }

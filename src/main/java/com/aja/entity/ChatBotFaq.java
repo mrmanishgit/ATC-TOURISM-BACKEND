@@ -10,6 +10,15 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ChatBotFaq {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long faqId;
+
+	private String question;
+
+	private String answer;
+//	//
+	
 	public Long getFaqId() {
 		return faqId;
 	}
@@ -33,13 +42,5 @@ public class ChatBotFaq {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long faqId;
-
-	private String question;
-
-	private String answer;
 
 }

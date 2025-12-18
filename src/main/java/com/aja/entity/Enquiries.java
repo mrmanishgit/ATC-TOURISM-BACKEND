@@ -10,6 +10,22 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Enquiries {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long enquiryId;
+
+	private String name;
+
+	private String email;
+
+	private Long mobileNo;
+
+	private String message;
+
+	private LocalDateTime createdAt = LocalDateTime.now();
+//	
+
 	public Long getEnquiryId() {
 		return enquiryId;
 	}
@@ -57,19 +73,5 @@ public class Enquiries {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long enquiryId;
-
-	private String name;
-
-	private String email;
-
-	private Long mobileNo;
-
-	private String message;
-
-	private LocalDateTime createdAt = LocalDateTime.now();
 
 }

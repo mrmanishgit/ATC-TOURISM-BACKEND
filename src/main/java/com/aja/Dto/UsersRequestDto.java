@@ -30,8 +30,8 @@ public class UsersRequestDto {
 	private LocalDate dateOfBirth;
 
 	private LocalDateTime createdAt = LocalDateTime.now();
-	@Column(unique = true)
-
+	
+	@Column(unique = true,nullable = false)
 	private String email;
 
 	@NotBlank(message = "Enter 10 digits mobile number")

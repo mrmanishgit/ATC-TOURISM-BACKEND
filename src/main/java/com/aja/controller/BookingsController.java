@@ -12,22 +12,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.BookingsRequestDto;
+import com.aja.Dto.BookingsResponseDto;
 import com.aja.entity.Bookings;
 import com.aja.serviceImpl.BookingsServiceImpl;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/api/book")
 public class BookingsController {
 	@Autowired
 	private BookingsServiceImpl bookImpl;
 	
-	@PostMapping
-	public ResponseEntity<Bookings> Booking(@RequestBody Bookings b)
+	@PostMapping("/create")
+	public ResponseEntity<BookingsResponseDto> Booking(@RequestBody BookingsRequestDto b)
 	{
-		return ResponseEntity.ok(bookImpl.addBooking(b));
+		BookingsResponseDto bdto=bookImpl.addBooking(b);
+		return ResponseEntity.ok(bdto);
 	}
 	
-	@GetMapping
+	@GetMapping("/all")
 	public List<Bookings> getAllBookings()
 	{
 		return bookImpl.viewBookings();
@@ -40,7 +43,7 @@ public class BookingsController {
 		return ResponseEntity.ok(b);
 	}
 	
-	@PutMapping("/{bookingId}")
+	@PutMapping("/update/{bookingId}")
 	public ResponseEntity<Bookings> updateBooking(@PathVariable Long bookingId,@RequestBody Bookings b)
 	{
 		return ResponseEntity.ok(bookImpl.updateBooking(bookingId, b));

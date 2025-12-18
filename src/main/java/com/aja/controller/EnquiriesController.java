@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.EnquiriesRequestDto;
+import com.aja.Dto.EnquiriesResponseDto;
 import com.aja.entity.Enquiries;
 import com.aja.service.EnquiriesService;
 
@@ -24,10 +26,10 @@ public class EnquiriesController {
 	private EnquiriesService enquiriesService;
 
 	@PostMapping("/register")
-	public ResponseEntity<Enquiries> createEnquiry(@RequestBody Enquiries enquiry) {
-		return ResponseEntity.ok(enquiriesService.saveEnquiry(enquiry));
+	public ResponseEntity<EnquiriesResponseDto> createEnquiry(@RequestBody EnquiriesRequestDto dto) {
+		return ResponseEntity.ok(enquiriesService.saveEnquiry(dto));
 	}
-
+	
 	@GetMapping("/all")
 	public List<Enquiries> getAllEnquiries() {
 		return enquiriesService.getAllEnquiries();
