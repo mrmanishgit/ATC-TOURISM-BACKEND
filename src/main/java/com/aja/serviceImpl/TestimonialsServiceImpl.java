@@ -2,24 +2,30 @@ package com.aja.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.TestimonialsRequestDto;
+import com.aja.Dto.TestimonialsResponseDto;
 import com.aja.entity.Testimonials;
 import com.aja.repository.TestimonialsRepo;
 import com.aja.service.TestimonialsService;
 
 @Service
-public class TestimonialsServiceImpl implements TestimonialsService {
+public class TestimonialsServiceImpl implements TestimonialsService{
 
 	@Autowired
 	private TestimonialsRepo tRepo;
 	@Override
-	public Testimonials addTestmonial(Testimonials t) {
+	public TestimonialsResponseDto addTestmonial(TestimonialsRequestDto tReq) {
 		// TODO Auto-generated method stub
-		
-		Testimonials tr=tRepo.save(t);
-		return tr;
+		Testimonials t=new Testimonials();
+		BeanUtils.copyProperties(tReq, t);
+		Testimonials saveEnt=tRepo.save(t);
+		TestimonialsResponseDto tdto=new TestimonialsResponseDto();
+		BeanUtils.copyProperties(saveEnt, tdto);
+		return tdto;
 	}
 
 	@Override
