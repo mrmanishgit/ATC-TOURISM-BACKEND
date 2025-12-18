@@ -87,4 +87,8 @@ public class UserServiceImpl implements UsersService {
 		return user;
 	}
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }
