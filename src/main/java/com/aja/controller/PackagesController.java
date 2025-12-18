@@ -20,7 +20,7 @@ import com.aja.serviceImpl.PackageServiceImpl;
 public class PackagesController {
 	@Autowired
 	PackageServiceImpl packageImpl;
-	@PostMapping("/create")
+	@PostMapping
 	public ResponseEntity<Packages> createPackage(@RequestBody Packages p)
 	{
 		return ResponseEntity.ok(packageImpl.addPackage(p));
