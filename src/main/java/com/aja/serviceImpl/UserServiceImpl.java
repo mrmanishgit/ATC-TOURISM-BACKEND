@@ -44,7 +44,7 @@ public class UserServiceImpl implements UsersService{
 		Users useren=userRepository.findById(id).orElse(null);
 				
 		useren.setFullName(user.getFullName());
-		useren.setMobileNo(user.getMobileNo());
+		useren.setMobile(user.getMobile());
 		useren.setIdentityProofType(user.getIdentityProofType());
 		useren.setIdentityProofNumber(user.getIdentityProofNumber());
 		useren.setProfileImage(user.getProfileImage());

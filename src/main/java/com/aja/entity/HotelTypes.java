@@ -21,7 +21,7 @@ public class HotelTypes {
 
 	private String typeName;
 
-	private Double pricePerNight;
+	private Double pricePerday;
 	
 	@OneToMany(mappedBy = "hoteltype")
 	private List<Bookings> bookings = new ArrayList<>();
