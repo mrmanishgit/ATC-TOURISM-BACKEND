@@ -19,7 +19,7 @@ public class UserServiceImpl implements UsersService{
     }
 
     @Override
-    public Users addUser(Users user) {
+    public Users registerUsers(Users user) {
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             throw new RuntimeException("Password and Confirm Password do not match");
@@ -70,10 +70,6 @@ public class UserServiceImpl implements UsersService{
 	    return user;
 	}
 
-	@Override
-	public Users registerUsers(Users user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }
