@@ -7,6 +7,7 @@ import com.aja.Dto.TestimonialsResponseDto;
 import com.aja.entity.Testimonials;
 
 public interface TestimonialsService {
+
 	public TestimonialsResponseDto addTestmonial(TestimonialsRequestDto tm);
 
 	public List<Testimonials> viewAll();

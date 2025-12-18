@@ -19,14 +19,16 @@ public class TestimonialsServiceImpl implements TestimonialsService {
 	private TestimonialsRepo tRepo;
 
 	@Override
-	public TestimonialsResponseDto addTestmonial(TestimonialsRequestDto tm) {
+
+	public TestimonialsResponseDto addTestmonial(TestimonialsRequestDto  tm) {
 		// TODO Auto-generated method stub
-		
 		Testimonials t=new Testimonials();
 		BeanUtils.copyProperties(tm, t);
 		
 		Testimonials saveEnt=tRepo.save(t);
 		TestimonialsResponseDto tdto =new TestimonialsResponseDto();
+
+		
 		BeanUtils.copyProperties(saveEnt,tdto);
 		return tdto;
 	}
@@ -40,27 +42,28 @@ public class TestimonialsServiceImpl implements TestimonialsService {
 	@Override
 	public Testimonials updateTestimonial(Long id, Testimonials t) {
 
-	    Testimonials existing = tRepo.findById(id)
-	            .orElseThrow(() -> new RuntimeException("Testimonial not found with id: " + id));
+		Testimonials existing = tRepo.findById(id)
+				.orElseThrow(() -> new RuntimeException("Testimonial not found with id: " + id));
 
-	    if (t.getName() != null) {
-	        existing.setName(t.getName());
-	    }
+		if (t.getName() != null) {
+			existing.setName(t.getName());
+		}
 
-	    if (t.getRating() != null) {
-	        existing.setRating(t.getRating());
-	    }
+		if (t.getRating() != null) {
+			existing.setRating(t.getRating());
+		}
 
-	    if (t.getReview() != null) {
-	        existing.setReview(t.getReview());
-	    }
+		if (t.getReview() != null) {
+			existing.setReview(t.getReview());
+		}
 
-	    if (t.getImage() != null) {
-	        existing.setImage(t.getImage());
-	    }
+		if (t.getImage() != null) {
+			existing.setImage(t.getImage());
+		}
 
-	    return tRepo.save(existing);
+		return tRepo.save(existing);
+		// TODO Auto-generated method stub
+
+		}
+		
 	}
-
-
-}

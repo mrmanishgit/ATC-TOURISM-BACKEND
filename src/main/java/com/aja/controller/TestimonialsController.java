@@ -25,7 +25,7 @@ public class TestimonialsController {
 	private TestimonialsServiceImpl tServiceImpl;
 
 	@PostMapping("/create")
-	public ResponseEntity<TestimonialsResponseDto> addTestimonials(@RequestBody TestimonialsRequestDto t)
+	public ResponseEntity<TestimonialsResponseDto> getTestimonials(@RequestBody TestimonialsRequestDto t)
 	{
 		TestimonialsResponseDto tdto=tServiceImpl.addTestmonial(t);
 		return ResponseEntity.ok(tdto);

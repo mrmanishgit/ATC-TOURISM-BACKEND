@@ -2,9 +2,12 @@ package com.aja.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.BookingsRequestDto;
+import com.aja.Dto.BookingsResponseDto;
 import com.aja.entity.Bookings;
 import com.aja.repository.BookingsRepo;
 import com.aja.service.BookingsService;
@@ -14,10 +17,14 @@ public class BookingsServiceImpl implements BookingsService {
 	private BookingsRepo bRepo;
 	
 	@Override
-	public Bookings addBooking(Bookings b) {
+	public BookingsResponseDto addBooking(BookingsRequestDto bres) {
 		// TODO Auto-generated method stub
-		Bookings bs=bRepo.save(b);
-		return bs;
+		Bookings b=new Bookings();
+		BeanUtils.copyProperties(bres, b);
+		Bookings savent=bRepo.save(b);
+		BookingsResponseDto bdto=new BookingsResponseDto(); 
+		BeanUtils.copyProperties(savent, bdto);
+		return bdto;
 	}
 
 	@Override
@@ -44,6 +51,12 @@ public class BookingsServiceImpl implements BookingsService {
 	public Bookings viewById(Long bookingId) {
 		// TODO Auto-generated method stub
 		return bRepo.findById(bookingId).orElse(null);
+	}
+
+	@Override
+	public Bookings addBooking(Bookings b) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -23,6 +23,30 @@ public class PackageLocations {
 	@JoinColumn(name = "place_id")
 	private Places place;
 
+	public Long getPid() {
+		return pid;
+	}
+
+	public void setPid(Long pid) {
+		this.pid = pid;
+	}
+
+	public Places getPlace() {
+		return place;
+	}
+
+	public void setPlace(Places place) {
+		this.place = place;
+	}
+
+	public Packages getPackages() {
+		return packages;
+	}
+
+	public void setPackages(Packages packages) {
+		this.packages = packages;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "package_id")
 	private Packages packages;

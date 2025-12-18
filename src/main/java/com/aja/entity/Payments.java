@@ -1,6 +1,9 @@
 package com.aja.entity;
 
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,8 +13,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 @Entity
 @Setter
 @Getter
@@ -19,10 +20,9 @@ public class Payments {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long paymentId;
-
+    
 	private String transactionId;
 
-	
 	private String paymentMethod;
 
 	private String paymentStatus;
