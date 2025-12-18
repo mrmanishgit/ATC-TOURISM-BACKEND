@@ -8,7 +8,7 @@ import com.aja.entity.Users;
 
 public interface UsersService {	   
 
-	public UsersResponseDto registerUsers(UsersRequestDto user);
+	public  UsersResponseDto registerUsers(UsersRequestDto user);
 
 
 	public List<Users> getAllUsers();

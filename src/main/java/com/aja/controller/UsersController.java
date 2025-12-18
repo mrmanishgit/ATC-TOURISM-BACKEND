@@ -28,12 +28,12 @@ public class UsersController {
 	private UserServiceImpl userImpl;
 	
 	@PostMapping()
-	public UsersResponseDto getUser(@RequestBody UsersRequestDto u)
+	public ResponseEntity<UsersResponseDto> getUser(@RequestBody UsersRequestDto u)
 	{
 		
 		UsersResponseDto uRes = userImpl.registerUsers(u);
 		
-		return  uRes;
+		return  ResponseEntity.ok(uRes);
 	}
 
 	

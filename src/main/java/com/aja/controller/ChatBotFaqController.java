@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.ChatBotFaqRequestDto;
+import com.aja.Dto.ChatBotFaqResponseDto;
 import com.aja.entity.ChatBotFaq;
 import com.aja.serviceImpl.ChatBotFaqServiceImpl;
 
@@ -25,8 +27,11 @@ public class ChatBotFaqController {
 	private ChatBotFaqServiceImpl chatBotFaqServiceImpl;
 	
 	@PostMapping("/add")
-    public ResponseEntity<ChatBotFaq> addFaq(@RequestBody ChatBotFaq faq) {
-        return ResponseEntity.ok(chatBotFaqServiceImpl.savechatBotFaq(faq));
+    public ResponseEntity<ChatBotFaqResponseDto> addFaq(@RequestBody ChatBotFaqRequestDto faq) {
+		
+		
+		ChatBotFaqResponseDto chatRes = chatBotFaqServiceImpl.savechatBotFaq(faq);
+        return ResponseEntity.ok(chatRes);
     }
 	
 	@GetMapping("/all")

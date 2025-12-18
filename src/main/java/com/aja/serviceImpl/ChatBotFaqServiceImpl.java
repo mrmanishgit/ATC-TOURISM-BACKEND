@@ -2,9 +2,12 @@ package com.aja.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.ChatBotFaqRequestDto;
+import com.aja.Dto.ChatBotFaqResponseDto;
 import com.aja.entity.ChatBotFaq;
 import com.aja.repository.ChatBotFaqRepo;
 import com.aja.service.ChatBotFaqService;
@@ -16,9 +19,19 @@ public class ChatBotFaqServiceImpl implements ChatBotFaqService {
 	private ChatBotFaqRepo chatBotFaqRepo;
 
 	@Override
-	public ChatBotFaq savechatBotFaq(ChatBotFaq chatBotFaq) {
+	public ChatBotFaqResponseDto savechatBotFaq(ChatBotFaqRequestDto faq) {
 		// TODO Auto-generated method stub
-		return chatBotFaqRepo.save(chatBotFaq);
+		ChatBotFaq chatbot = new ChatBotFaq();
+		
+		BeanUtils.copyProperties(faq, chatbot);
+		
+		ChatBotFaq chatEntity = chatBotFaqRepo.save(chatbot);
+		
+		ChatBotFaqResponseDto chatRes = new ChatBotFaqResponseDto();
+		
+		BeanUtils.copyProperties(chatEntity, chatRes);
+		
+		return chatRes; 
 	}
 
 	@Override

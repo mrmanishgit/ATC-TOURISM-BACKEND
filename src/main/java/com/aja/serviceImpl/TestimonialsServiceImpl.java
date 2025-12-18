@@ -2,9 +2,12 @@ package com.aja.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.TestimonialsRequestDto;
+import com.aja.Dto.TestimonialsResponseDto;
 import com.aja.entity.Testimonials;
 import com.aja.repository.TestimonialsRepo;
 import com.aja.service.TestimonialsService;
@@ -14,12 +17,18 @@ public class TestimonialsServiceImpl implements TestimonialsService {
 
 	@Autowired
 	private TestimonialsRepo tRepo;
+
 	@Override
-	public Testimonials addTestmonial(Testimonials t) {
+	public TestimonialsResponseDto addTestmonial(TestimonialsRequestDto tm) {
 		// TODO Auto-generated method stub
 		
-		Testimonials tr=tRepo.save(t);
-		return tr;
+		Testimonials t=new Testimonials();
+		BeanUtils.copyProperties(tm, t);
+		
+		Testimonials saveEnt=tRepo.save(t);
+		TestimonialsResponseDto tdto =new TestimonialsResponseDto();
+		BeanUtils.copyProperties(saveEnt,tdto);
+		return tdto;
 	}
 
 	@Override
@@ -30,17 +39,28 @@ public class TestimonialsServiceImpl implements TestimonialsService {
 
 	@Override
 	public Testimonials updateTestimonial(Long id, Testimonials t) {
-		// TODO Auto-generated method stub
-		
-		Testimonials tm=tRepo.findById(id).orElse(null);
-		
-		tm.setName(t.getName());
-		tm.setRating(t.getRating());
-		tm.setImage(t.getImage());
-		tm.setUser(t.getUser());
-		return null;
+
+	    Testimonials existing = tRepo.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Testimonial not found with id: " + id));
+
+	    if (t.getName() != null) {
+	        existing.setName(t.getName());
+	    }
+
+	    if (t.getRating() != null) {
+	        existing.setRating(t.getRating());
+	    }
+
+	    if (t.getReview() != null) {
+	        existing.setReview(t.getReview());
+	    }
+
+	    if (t.getImage() != null) {
+	        existing.setImage(t.getImage());
+	    }
+
+	    return tRepo.save(existing);
 	}
 
-	
 
 }

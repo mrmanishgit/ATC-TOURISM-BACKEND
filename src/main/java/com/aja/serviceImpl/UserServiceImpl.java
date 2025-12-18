@@ -19,7 +19,7 @@ public class UserServiceImpl implements UsersService {
 
 //	1
 	@Override
-	public UsersResponseDto registerUsers(UsersRequestDto user) {
+	public  UsersResponseDto registerUsers(UsersRequestDto user) {
 
 		if (!user.getPassword().equals(user.getConfirmPassword())) {
 			throw new RuntimeException("Password and Confirm Password do not match");

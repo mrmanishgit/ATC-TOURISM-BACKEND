@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.PlacesRequestDto;
+import com.aja.Dto.PlacesResponseDto;
 import com.aja.entity.Places;
 import com.aja.serviceImpl.PlacesServiceImpl;
 
@@ -21,9 +23,11 @@ public class PlacesController {
 	@Autowired
 	private PlacesServiceImpl placeImpl;
 	@PostMapping
-	public ResponseEntity<Places> place(@RequestBody Places p)
+	public ResponseEntity<PlacesResponseDto> place(@RequestBody PlacesRequestDto p)
 	{
-		return ResponseEntity.ok(placeImpl.addPlace(p));
+		
+		PlacesResponseDto place = placeImpl.addPlace(p);
+		return ResponseEntity.ok(place);
 	}
 	@GetMapping
 	public List<Places> getAllPlaces()
