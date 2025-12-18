@@ -44,11 +44,11 @@ public class UserServiceImpl implements UsersService{
 		Users useren=userRepository.findById(id).orElse(null);
 				
 		useren.setFullName(user.getFullName());
-		useren.setMobile(user.getMobile());
+		useren.setMobileNo(user.getMobileNo());
 		useren.setIdentityProofType(user.getIdentityProofType());
 		useren.setIdentityProofNumber(user.getIdentityProofNumber());
 		useren.setProfileImage(user.getProfileImage());
-		useren.setDob(user.getDob());
+		useren.setDateOfBirth(user.getDateOfBirth());
 		useren.setEmail(user.getEmail());
 		// TODO Auto-generated method stub
 		return userRepository.save(useren);

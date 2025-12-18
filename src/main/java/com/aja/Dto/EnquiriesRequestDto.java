@@ -1,5 +1,20 @@
 package com.aja.Dto;
 
-public class EnquiriesRequestDto {
+import java.time.LocalDateTime;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class EnquiriesRequestDto {
+	private String name;
+
+	private String email;
+
+	private Long mobileNo;
+
+	private String message;
+
+	private LocalDateTime createdAt = LocalDateTime.now();
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aja.entity.ChatBotFaq;
-import com.aja.entity.Users;
 import com.aja.repository.ChatBotFaqRepo;
 import com.aja.service.ChatBotFaqService;
 

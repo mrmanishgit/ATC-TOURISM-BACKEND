@@ -1,5 +1,13 @@
 package com.aja.Dto;
 
-public class PlacesResponseDto {
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class PlacesResponseDto {
+	private String placeName;
+
+	private String description;
+	
 }
