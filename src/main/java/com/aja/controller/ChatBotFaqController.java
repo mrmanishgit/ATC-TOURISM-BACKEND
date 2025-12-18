@@ -41,7 +41,8 @@ public class ChatBotFaqController {
 		}
 	
 	@PutMapping("/update/{id}")
-	public ChatBotFaq updateFaq(@PathVariable Long id, @RequestBody ChatBotFaq chatBotFaq) {
+	public ChatBotFaq updateFaq(@PathVariable Long id, @RequestBody ChatBotFaq chatBotFaq)
+	{
 	    return chatBotFaqServiceImpl.updaBotFaq(id, chatBotFaq);
 	}
 

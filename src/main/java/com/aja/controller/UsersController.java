@@ -29,7 +29,7 @@ public class UsersController {
 	@PostMapping("/add")
 	public Users getUser(@RequestBody Users u)
 	{
-		return userImpl.addUser(u);
+		return userImpl.registerUsers(u);
 	}
 	@GetMapping
 	public List<Users> viewAllUsers()

@@ -53,6 +53,7 @@ public class HotelTypes {
 
 	private String typeName;
 
+
 	private Double pricePerday;
 	
 	@OneToMany(mappedBy = "hoteltype")
