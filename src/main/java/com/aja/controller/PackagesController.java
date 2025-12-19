@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,11 @@ public class PackagesController {
 	@PutMapping("/update/{packageId}")
 	public ResponseEntity<Packages> upadte(@PathVariable Long packageId, @RequestBody Packages p) {
 		return ResponseEntity.ok(packageImpl.updatePackage(packageId, p));
+	}
+	@DeleteMapping("/{id}")
+	public String deletePackage(@PathVariable Long id) {
+		 String deletePackage = packageImpl.deletePackage(id);
+		 return deletePackage;
 	}
 
 }

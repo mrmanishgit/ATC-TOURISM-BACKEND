@@ -28,7 +28,6 @@ public class PaymentsServiceImpl implements PaymentsService {
 		PaymentsResponseDto pyrd = new PaymentsResponseDto();
 		BeanUtils.copyProperties(saveEnt, pyrd);
 		return pyrd;
-
 	}
 
 	@Override

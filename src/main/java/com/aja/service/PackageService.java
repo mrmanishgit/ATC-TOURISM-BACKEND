@@ -14,4 +14,6 @@ public interface PackageService {
 	public Packages getPackage(Long packageId);
 
 	public Packages updatePackage(Long packageId, Packages p);
+
+	public String deletePackage(Long id);
 }
