@@ -1,6 +1,7 @@
 package com.aja.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,32 @@ public class PackageServiceImpl implements PackageService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String deletePackage(Long id) {
+		// TODO Auto-generated method stub
+	Optional<Packages> delbyId = pRepo.findById(id);
+	
+	Packages obj = null;
+	if(delbyId.isPresent()) {
+		obj = delbyId.get();
+		obj.setFlag(false);
+	      pRepo.save(obj);
+	      }
+	
+	if(obj!=null) {
+		return "Package Deleted Successfully";
+	}
+	else {
+		return "Package is not deleted";
+	}
+	
+	
+	
+	
+	
+	}
+	
 
 
 	

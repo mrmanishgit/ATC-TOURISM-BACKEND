@@ -30,6 +30,8 @@ public class Packages {
 	private Double childPrice;
 
 	private Double foodPrice;
+	
+	private boolean isFlag = true;
 
 	public Long getPackageId() {
 		return packageId;

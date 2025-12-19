@@ -14,4 +14,6 @@ public interface PlacesService {
 	public Places viewPlace(Long placeId);
 
 	public Places updatePlace(Long placeId, Places p);
+	
+	public String deletePlace(Long id);
 }
