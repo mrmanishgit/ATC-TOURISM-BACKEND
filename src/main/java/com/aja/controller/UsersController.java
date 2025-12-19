@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aja.Dto.UsersRequestDto;
 import com.aja.Dto.UsersResponseDto;
 import com.aja.entity.Users;
+import com.aja.repository.BookingPricingRepo;
 import com.aja.serviceImpl.UserServiceImpl;
 
 @RestController
@@ -26,17 +28,15 @@ public class UsersController {
 
 	@Autowired
 	private UserServiceImpl userImpl;
-	
+
 	@PostMapping()
-	public ResponseEntity<UsersResponseDto> getUser(@RequestBody UsersRequestDto u)
-	{
-		
+	public ResponseEntity<UsersResponseDto> getUser(@RequestBody UsersRequestDto u) {
+
 		UsersResponseDto uRes = userImpl.registerUsers(u);
-		
-		return  ResponseEntity.ok(uRes);
+
+		return ResponseEntity.ok(uRes);
 	}
 
-	
 	@GetMapping("/all")
 	public List<Users> getAllUsers() {
 		return userImpl.getAllUsers();
@@ -56,4 +56,13 @@ public class UsersController {
 		} catch (RuntimeException ex) {
 			return ResponseEntity.status(401).body(ex.getMessage());
 		}
-	}}
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public String deleteUser(@PathVariable Long id) {
+
+		String deleteUser = userImpl.deleteUser(id);
+
+		return deleteUser;
+	}
+}

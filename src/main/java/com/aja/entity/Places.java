@@ -25,17 +25,15 @@ public class Places {
 	private String placeName;
 
 	private String description;
-	
+
+//	@Column(name = "is_flag", nullable = false)
 	private Boolean isFlag = true;
 	
 	@ManyToOne
 	@JoinColumn(name = "state_id")
 	private States state;
-	
-	@OneToMany(mappedBy = "place",cascade = CascadeType.ALL)
-	private List<PackageLocations> packageLocations = new ArrayList<>() ;
-	
+
+	@OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+	private List<PackageLocations> packageLocations = new ArrayList<>();
+
 }
-
-
-

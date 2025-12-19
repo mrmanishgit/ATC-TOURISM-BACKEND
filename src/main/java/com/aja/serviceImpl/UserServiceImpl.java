@@ -1,6 +1,7 @@
 package com.aja.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UsersService {
 
 //	1
 	@Override
-	public  UsersResponseDto registerUsers(UsersRequestDto user) {
+	public UsersResponseDto registerUsers(UsersRequestDto user) {
 
 		if (!user.getPassword().equals(user.getConfirmPassword())) {
 			throw new RuntimeException("Password and Confirm Password do not match");
@@ -87,4 +88,26 @@ public class UserServiceImpl implements UsersService {
 		return user;
 	}
 
+	@Override
+	public String deleteUser(Long id) {
+
+		Optional<Users> delbyId = userRepository.findById(id);
+
+		Users userObj = null;
+		if (delbyId.isPresent()) {
+			userObj = delbyId.get();
+			userObj.setFlag(false);
+			userRepository.save(userObj);
+
+		}
+		if(userObj!=null)
+		{
+			return "User Deleted Successfully";
+		}
+		else
+		{
+		return "User Not Deleted Successfully";
+	}
+
+}
 }

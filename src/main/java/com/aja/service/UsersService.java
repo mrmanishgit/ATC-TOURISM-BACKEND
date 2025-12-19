@@ -16,6 +16,8 @@ public interface UsersService {
 	public Users login(String email, String password);
 
 	public Users updateUser(Long id, Users user);
+	
+	public String deleteUser(Long id);
 
 
 
