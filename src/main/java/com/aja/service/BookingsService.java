@@ -2,6 +2,7 @@ package com.aja.service;
 
 import java.util.List;
 
+import com.aja.Dto.BookingDeleteResponseDto;
 import com.aja.Dto.BookingsRequestDto;
 import com.aja.Dto.BookingsResponseDto;
 import com.aja.entity.Bookings;
@@ -15,7 +16,7 @@ public interface BookingsService {
 
 	public BookingsResponseDto viewById(Long bookingId);
 
-	public Bookings updateBooking(Long bookingId, Bookings b);
+	public BookingsResponseDto updateBooking(Long bookingId, BookingsRequestDto b);
 	
-	public String deleteBooking(Long bookingId);
+	public BookingDeleteResponseDto deleteBooking(Long bookingId);
 }

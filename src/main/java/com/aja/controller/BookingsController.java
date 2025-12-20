@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.BookingDeleteResponseDto;
 import com.aja.Dto.BookingsRequestDto;
 import com.aja.Dto.BookingsResponseDto;
 import com.aja.entity.Bookings;
@@ -47,15 +48,18 @@ public class BookingsController {
 	}
 	
 	@PutMapping("/update/{bookingId}")
-	public ResponseEntity<Bookings> updateBooking(@PathVariable Long bookingId,@RequestBody Bookings b)
+	public ResponseEntity<BookingsResponseDto> updateBooking(@PathVariable Long bookingId,@RequestBody BookingsRequestDto b)
 	{
-		return ResponseEntity.ok(bookImpl.updateBooking(bookingId, b));
+		BookingsResponseDto res=bookImpl.updateBooking(bookingId, b);
+		return ResponseEntity.ok(res);
 	}
-	@DeleteMapping("/remove/{bookingId}")
-	public ResponseEntity<String> softDelete(@PathVariable Long bookingId)
-	{
-		bookImpl.deleteBooking(bookingId);
-		return ResponseEntity.ok("booking deleted successfully"); 
+	@DeleteMapping("/softdelete/{id}")
+    public ResponseEntity<BookingDeleteResponseDto> softdelete(@PathVariable Long id) {
+    	
+	 BookingDeleteResponseDto deleteBooking = bookImpl.deleteBooking(id);
+	
+		return ResponseEntity.ok(deleteBooking);
 	}
+
 	
 }

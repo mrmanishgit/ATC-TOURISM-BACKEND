@@ -46,10 +46,10 @@ public class TestimonialsController {
 	}
 
 	@PutMapping("/update/{id}")
-	public Testimonials updateTestimonial(@PathVariable Long id,@RequestBody Testimonials t)
-
+	public ResponseEntity<TestimonialsResponseDto> updateTestimonial(@PathVariable Long id,@RequestBody TestimonialsRequestDto t)
 	{
-		return tServiceImpl.updateTestimonial(id, t);
+		TestimonialsResponseDto res= tServiceImpl.updateTestimonial(id, t);
+		return ResponseEntity.ok(res);
 	}
 	@DeleteMapping("/remove/{id}")
 	public ResponseEntity<String> softdelete(@PathVariable Long id)

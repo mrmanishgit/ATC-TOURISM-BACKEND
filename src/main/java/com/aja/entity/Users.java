@@ -23,6 +23,17 @@ public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
+
+	private String fullName;
+
+	private String password;
+
+	private String confirmPassword;
+
+	private String profileImage;
+
+	private String photoUrl;
+
 	private String fullName;
 	private String password;
 	
@@ -30,29 +41,31 @@ public class Users {
 
 	private String profileImage;
 
+
 	private LocalDate dateOfBirth;
 
 	private LocalDateTime createdAt = LocalDateTime.now();
+
 	private String email;
+
 	private String mobileNo;
-	
+
 	private IdentityProofType identityProofType;
+
 	private String identityProofNumber;
-	
-	private boolean isFlag = true;
-	
-	
 
 //	Relationships
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Bookings> bookings = new ArrayList<>();
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Testimonials> testmonials = new ArrayList<>();
-<<<<<<< Updated upstream
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-=======
 
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
->>>>>>> Stashed changes
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Payments> payment = new ArrayList<>();
+
+}
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Payments> payment = new ArrayList<>();
 }
