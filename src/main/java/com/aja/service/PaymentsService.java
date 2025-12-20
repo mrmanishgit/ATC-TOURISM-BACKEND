@@ -2,18 +2,20 @@ package com.aja.service;
 
 import java.util.List;
 
-import com.aja.entity.Payments;
+import com.aja.Dto.PaymentDeleteResponseDto;
+import com.aja.Dto.PaymentsRequestDto;
+import com.aja.Dto.PaymentsResponseDto;
 
 public interface PaymentsService {
 
-	public Payments createPayment(Payments payment);
+	PaymentsResponseDto createPayment(PaymentsRequestDto dto);
 
-	public Payments getPaymentById(Long paymentId);
+	public List<PaymentsResponseDto> getAllPayments();
 
-	public Payments getByTransactionId(String transactionId);
+	public PaymentsResponseDto getPaymentById(Long paymentId);
 
-	public List<Payments> getAllPayments();
+	public PaymentsResponseDto updatePayment(Long paymentId, PaymentsResponseDto payres);
 
-	public Payments updatePayment(Long paymentId, Payments payment);
+	public PaymentDeleteResponseDto deletePayment(Long paymentId);
 
 }

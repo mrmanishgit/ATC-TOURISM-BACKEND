@@ -50,6 +50,8 @@ public class Places {
 
 	private String description;
 	
+	private Boolean isFlag = true;
+	
 	@ManyToOne
 	@JoinColumn(name = "state_id")
 	private States state;

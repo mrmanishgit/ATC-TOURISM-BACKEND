@@ -9,7 +9,6 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Entity
 @Setter
 @Getter
@@ -17,7 +16,7 @@ public class BookingPricing {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long pricingId;
-	
+
 	private Double adultTotal;
 
 	private Double childTotal;
@@ -29,7 +28,7 @@ public class BookingPricing {
 	private Double gstAmount;
 
 	private Double finalAmount;
-	
+
 	@OneToOne
 	@JoinColumn(name = "booking_id")
 	private Bookings booking;

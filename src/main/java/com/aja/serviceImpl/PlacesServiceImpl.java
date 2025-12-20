@@ -1,23 +1,40 @@
 package com.aja.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.PlacesRequestDto;
+import com.aja.Dto.PlacesResponseDto;
 import com.aja.entity.Places;
 import com.aja.repository.PlacesRepo;
 import com.aja.service.PlacesService;
+
 @Service
 public class PlacesServiceImpl implements PlacesService {
+
 	@Autowired
 	private PlacesRepo pRepo;
+
+
 	@Override
-	public Places addPlace(Places p) {
+	public PlacesResponseDto addPlace(PlacesRequestDto p) {
 		// TODO Auto-generated method stub
-		
-		Places ps=pRepo.save(p);
-		return ps;
+
+		Places place = new Places();
+
+		BeanUtils.copyProperties(p, place);
+
+		Places entity = pRepo.save(place);
+
+		PlacesResponseDto pRes = new PlacesResponseDto();
+
+		BeanUtils.copyProperties(entity, pRes);
+
+		return pRes;
 	}
 
 	@Override
@@ -27,9 +44,9 @@ public class PlacesServiceImpl implements PlacesService {
 	}
 
 	@Override
-	public Places updatePlace(Long placeId,Places p) {
-		// TODO Auto-generated method stub
-		Places ps=pRepo.findById(placeId).orElse(null);
+	public Places updatePlace(Long placeId, Places p) {
+
+		Places ps = pRepo.findById(placeId).orElse(null);
 		ps.setPlaceName(p.getPlaceName());
 		ps.setDescription(p.getDescription());
 		return ps;
@@ -37,9 +54,34 @@ public class PlacesServiceImpl implements PlacesService {
 
 	@Override
 	public Places viewPlace(Long placeId) {
-		// TODO Auto-generated method stub
-		Places ps=pRepo.findById(placeId).orElse(null);
+
+		Places ps = pRepo.findById(placeId).orElse(null);
 		return ps;
+	}
+
+	@Override
+	public String deletePlace(Long id) {
+
+		Optional<Places> delbyId = pRepo.findById(id);
+
+		Places p = null;
+
+		if (delbyId.isPresent()) {
+			p = delbyId.get();
+
+			p.setIsFlag(false);
+
+			pRepo.save(p);
+		}
+		
+		if(p!=null)
+		{
+			return "Place Deleted Successfully";
+		}
+		else {
+			return "Place not Deleted Successfully";
+		}
+
 	}
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aja.Dto.UsersRequestDto;
+import com.aja.Dto.UsersResponseDto;
 import com.aja.entity.Users;
 import com.aja.serviceImpl.UserServiceImpl;
 
@@ -25,16 +26,19 @@ public class UsersController {
 
 	@Autowired
 	private UserServiceImpl userImpl;
-	
+
 	@PostMapping("/add")
-	public Users getUser(@RequestBody Users u)
+//	public Users getUser(@RequestBody Users u)
+//
+//	//@PostMapping()
+	
+	public ResponseEntity<UsersResponseDto> getUser(@RequestBody UsersRequestDto u)
+
 	{
-		return userImpl.registerUsers(u);
-	}
-	@GetMapping
-	public List<Users> viewAllUsers()
-	{
-		return userImpl.getAllUsers();
+
+		UsersResponseDto uRes = userImpl.registerUsers(u);
+
+		return ResponseEntity.ok(uRes);
 	}
 
 	@GetMapping("/all")
@@ -56,4 +60,5 @@ public class UsersController {
 		} catch (RuntimeException ex) {
 			return ResponseEntity.status(401).body(ex.getMessage());
 		}
-	}}
+	}
+}

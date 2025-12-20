@@ -31,6 +31,8 @@ public class Packages {
 
 	private Double foodPrice;
 
+	private boolean isFlag = true;
+
 	private Double pickupPrice;
 
 	private Double gstPercentage;

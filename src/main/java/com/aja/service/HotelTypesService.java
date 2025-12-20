@@ -2,11 +2,13 @@ package com.aja.service;
 
 import java.util.List;
 
+import com.aja.Dto.HotelTypesRequestDto;
+import com.aja.Dto.HotelTypesResponseDto;
 import com.aja.entity.HotelTypes;
 
 public interface HotelTypesService {
 
-	public HotelTypes saveHotel(HotelTypes hotelTypes);
+	HotelTypesResponseDto saveHotel(HotelTypesRequestDto hotelTypes);
 
 	public List<HotelTypes> getAllEnquiries();
 

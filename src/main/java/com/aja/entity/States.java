@@ -17,29 +17,16 @@ import lombok.Setter;
 @Getter
 public class States {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long stateId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long stateId;
 	private String stateName;
-	public Long getStateId() {
-		return stateId;
-	}
-	public void setStateId(Long stateId) {
-		this.stateId = stateId;
-	}
-	public String getStateName() {
-		return stateName;
-	}
-	public void setStateName(String stateName) {
-		this.stateName = stateName;
-	}
 
 	
 //	Relationships
-	
-	@OneToMany(mappedBy = "state",cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
 	private List<Places> places = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "state",cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
 	private List<Packages> packages = new ArrayList<>();
 }
-

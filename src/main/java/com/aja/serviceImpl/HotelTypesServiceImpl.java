@@ -2,9 +2,12 @@ package com.aja.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.HotelTypesRequestDto;
+import com.aja.Dto.HotelTypesResponseDto;
 import com.aja.entity.HotelTypes;
 import com.aja.repository.HotelTypesRepo;
 import com.aja.service.HotelTypesService;
@@ -15,9 +18,15 @@ public class HotelTypesServiceImpl implements HotelTypesService {
 	private HotelTypesRepo hotelTypesRepo;
 
 	@Override
-	public HotelTypes saveHotel(HotelTypes hotelTypes) {
+	public HotelTypesResponseDto saveHotel(HotelTypesRequestDto hotelTypes) {
 		// TODO Auto-generated method stub
-		return hotelTypesRepo.save(hotelTypes);
+
+		HotelTypes h = new HotelTypes();
+		BeanUtils.copyProperties(hotelTypes, h);
+		HotelTypes savent = hotelTypesRepo.save(h);
+		HotelTypesResponseDto hdto = new HotelTypesResponseDto();
+		BeanUtils.copyProperties(savent, hdto);
+		return hdto;
 	}
 
 	@Override
