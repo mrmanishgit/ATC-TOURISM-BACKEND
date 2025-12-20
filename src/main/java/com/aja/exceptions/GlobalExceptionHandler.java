@@ -18,7 +18,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	public class GlobalExceptionHandler {
 	 
-	    // 1️⃣ Resource not found (Place / Package / Booking not found)
+	    // 1️ Resource not found (Place / Package / Booking not found)
 
 	    @ExceptionHandler(RuntimeException.class)
 
@@ -28,7 +28,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 2️⃣ Validation error (@NotNull, @NotBlank)
+	    // 2️ Validation error (@NotNull, @NotBlank)
 
 	    @ExceptionHandler(MethodArgumentNotValidException.class)
 
@@ -38,7 +38,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 3️⃣ Database constraint issues (FK, duplicate, NOT NULL)
+	    // 3️ Database constraint issues (FK, duplicate, NOT NULL)
 
 	    @ExceptionHandler(DataIntegrityViolationException.class)
 
@@ -48,7 +48,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 4️⃣ Wrong ID type in URL (string instead of number)
+	    // 4️ Wrong ID type in URL (string instead of number)
 
 	    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
 
@@ -58,7 +58,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 5️⃣ Wrong HTTP method (GET instead of POST/DELETE)
+	    // 5️ Wrong HTTP method (GET instead of POST/DELETE)
 
 	    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 
@@ -68,7 +68,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 6️⃣ Business rule violation (booking rules, date rules)
+	    // 6️ Business rule violation (booking rules, date rules)
 
 	    @ExceptionHandler(IllegalStateException.class)
 
@@ -78,7 +78,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 7️⃣ Invalid method arguments
+	    // 7️ Invalid method arguments
 
 	    @ExceptionHandler(IllegalArgumentException.class)
 
@@ -88,7 +88,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 8️⃣ Invalid JSON request body
+	    // 8️ Invalid JSON request body
 
 	    @ExceptionHandler(HttpMessageNotReadableException.class)
 
@@ -98,7 +98,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 9️⃣ Missing request parameter
+	    // 9️ Missing request parameter
 
 	    @ExceptionHandler(MissingServletRequestParameterException.class)
 
@@ -108,7 +108,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 🔟 Unauthorized access (if Spring Security is used)
+	    // 10 Unauthorized access (if Spring Security is used)
 
 	    @ExceptionHandler(AccessDeniedException.class)
 
@@ -118,7 +118,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 1️⃣1️⃣ Null pointer (NOT recommended, but shown for knowledge)
+	    // 1️1️ Null pointer (NOT recommended, but shown for knowledge)
 
 	    @ExceptionHandler(NullPointerException.class)
 
@@ -128,7 +128,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 	    }
 	 
-	    // 1️⃣2️⃣ Fallback for any other error
+	    // 1️2 Fallback for any other error
 
 	    @ExceptionHandler(Exception.class)
 
