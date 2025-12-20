@@ -48,6 +48,11 @@ public class Users {
 	private List<Bookings> bookings = new ArrayList<>();
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Testimonials> testmonials = new ArrayList<>();
+<<<<<<< Updated upstream
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+=======
+
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+>>>>>>> Stashed changes
 	private List<Payments> payment = new ArrayList<>();
 }
