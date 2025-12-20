@@ -25,6 +25,7 @@ import com.aja.service.UsersService;
 public class UsersController {
 
 	@Autowired
+
 	private UsersService userService;
 
 	// register user
@@ -36,6 +37,23 @@ public class UsersController {
 	}
 
 	// get all users
+
+	private UserServiceImpl userImpl;
+
+	@PostMapping("/add")
+//	public Users getUser(@RequestBody Users u)
+//
+//	//@PostMapping()
+	
+	public ResponseEntity<UsersResponseDto> getUser(@RequestBody UsersRequestDto u)
+
+	{
+
+		UsersResponseDto uRes = userImpl.registerUsers(u);
+
+		return ResponseEntity.ok(uRes);
+	}
+
 	@GetMapping("/all")
 	public List<UsersResponseDto> getAllUsers() {
 		return userService.getAllUsers();

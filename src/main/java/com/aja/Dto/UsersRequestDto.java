@@ -29,6 +29,7 @@ public class UsersRequestDto {
 
 	private LocalDate dateOfBirth;
 
+
 	private LocalDateTime createdAt = LocalDateTime.now();
 	
 	@Column(unique = true,nullable = false)
@@ -42,4 +43,5 @@ public class UsersRequestDto {
 
 	private String identityProofNumber;
 
-}
+	}
+

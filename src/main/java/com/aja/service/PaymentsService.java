@@ -2,6 +2,7 @@ package com.aja.service;
 
 import java.util.List;
 
+import com.aja.Dto.PaymentDeleteResponseDto;
 import com.aja.Dto.PaymentsRequestDto;
 import com.aja.Dto.PaymentsResponseDto;
 

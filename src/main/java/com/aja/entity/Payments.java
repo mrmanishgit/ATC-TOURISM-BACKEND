@@ -40,5 +40,5 @@ public class Payments {
 	@JoinColumn(name = "booking_id")
 	private Bookings booking;
 	
-	
+	private boolean isFlag=true;//soft delete flag
 }

@@ -10,9 +10,9 @@ public interface HotelTypesService {
 
 	HotelTypesResponseDto saveHotel(HotelTypesRequestDto hotelTypes);
 
-	List<HotelTypes> getAllEnquiries();
+	public List<HotelTypes> getAllEnquiries();
 
-	HotelTypes getEnquiryById(Long Id);
+	public HotelTypes getEnquiryById(Long Id);
 
-	HotelTypes updateHoteType(long id, HotelTypes hotelTypes);
+	public HotelTypes updateHoteType(long id, HotelTypes hotelTypes);
 }

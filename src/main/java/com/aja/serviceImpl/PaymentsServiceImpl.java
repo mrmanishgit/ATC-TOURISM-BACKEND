@@ -8,10 +8,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.PaymentDeleteResponseDto;
 import com.aja.Dto.PaymentsRequestDto;
 import com.aja.Dto.PaymentsResponseDto;
+import com.aja.entity.Bookings;
 import com.aja.entity.Payments;
+import com.aja.entity.Users;
+import com.aja.repository.BookingsRepo;
 import com.aja.repository.PaymentsRepo;
+import com.aja.repository.UsersRepo;
 import com.aja.service.PaymentsService;
 
 @Service
@@ -20,6 +25,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 	@Autowired
 	private PaymentsRepo paymentsRepo;
 
+	/* Add payment details */
 	@Override
 	public PaymentsResponseDto createPayment(PaymentsRequestDto dto) {
 
@@ -34,6 +40,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 		return res;
 	}
 
+	/* payment details visible by id */
 	@Override
 	public PaymentsResponseDto getPaymentById(Long paymentId) {
 
@@ -49,6 +56,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 		return res;
 	}
 
+	/* All payment details */
 	@Override
 	public List<PaymentsResponseDto> getByTransactionId(String transactionId) {
 
@@ -65,7 +73,10 @@ public class PaymentsServiceImpl implements PaymentsService {
 
 		return resList;
 	}
+	
+	
 
+	/* updated by id */
 	@Override
 	public List<PaymentsResponseDto> getAllPayments() {
 
@@ -81,6 +92,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 		return resList;
 	}
 
+	/* Delete payment details */
 	@Override
 	public PaymentsResponseDto updatePayment(
 			Long paymentId,
@@ -102,4 +114,5 @@ public class PaymentsServiceImpl implements PaymentsService {
 
 		return res;
 	}
+
 }

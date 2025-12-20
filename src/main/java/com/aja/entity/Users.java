@@ -19,13 +19,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "users")
-public class Users{
+public class Users {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long userId; 
-	
-	private String fullName; 
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long userId;
+	private String fullName;
 	private String password;
 	
 	private String confirmPassword;
@@ -35,13 +33,10 @@ public class Users{
 	private LocalDate dateOfBirth;
 
 	private LocalDateTime createdAt = LocalDateTime.now();
-	
 	private String email;
-	
 	private String mobileNo;
 	
 	private IdentityProofType identityProofType;
-	
 	private String identityProofNumber;
 	
 	private boolean isFlag = true;
@@ -49,14 +44,10 @@ public class Users{
 	
 
 //	Relationships
-	
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Bookings> bookings = new ArrayList<>();
-	
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Testimonials> testmonials = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Payments> payment = new ArrayList<>();
-	
 }

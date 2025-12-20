@@ -8,7 +8,9 @@ import com.aja.entity.ChatBotFaq;
 
 public interface ChatBotFaqService {
 
+
 	public ChatBotFaqResponseDto savechatBotFaq(ChatBotFaqRequestDto chatBotFaq);
+
 
 	public List<ChatBotFaq> getAllFaqs();
 
