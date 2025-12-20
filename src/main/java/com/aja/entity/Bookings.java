@@ -32,6 +32,7 @@ public class Bookings{
     private String bookingStatus;
 
     private LocalDateTime createdAt;
+    private boolean isFlag=true;
    
  // Many bookings -> one user
     

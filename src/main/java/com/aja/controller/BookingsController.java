@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,22 +32,30 @@ public class BookingsController {
 	}
 	
 	@GetMapping("/all")
-	public List<Bookings> getAllBookings()
+	public ResponseEntity<List<BookingsResponseDto>> getAllBookings()
 	{
-		return bookImpl.viewBookings();
+		List<BookingsResponseDto> book =bookImpl.viewBookings();
+		return ResponseEntity.ok(book);
+		
 	}
 	
 	@GetMapping("/{bookingId}")
-	public ResponseEntity<Bookings> getBookingById(@PathVariable Long bookingId)
+	public ResponseEntity<BookingsResponseDto> getBookingById(@PathVariable Long bookingId)
 	{
-		Bookings b=bookImpl.viewById(bookingId);
-		return ResponseEntity.ok(b);
+		BookingsResponseDto booking=bookImpl.viewById(bookingId);
+		return ResponseEntity.ok(booking);
 	}
 	
 	@PutMapping("/update/{bookingId}")
 	public ResponseEntity<Bookings> updateBooking(@PathVariable Long bookingId,@RequestBody Bookings b)
 	{
 		return ResponseEntity.ok(bookImpl.updateBooking(bookingId, b));
+	}
+	@DeleteMapping("/remove/{bookingId}")
+	public ResponseEntity<String> softDelete(@PathVariable Long bookingId)
+	{
+		bookImpl.deleteBooking(bookingId);
+		return ResponseEntity.ok("booking deleted successfully"); 
 	}
 	
 }

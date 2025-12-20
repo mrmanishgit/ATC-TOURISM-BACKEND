@@ -21,7 +21,8 @@ public class Testimonials {
 	private String rating;
 	private String review;
 	private String image;
-
+	private boolean isFlag=true;
+	
 //	Relationships
 	
 	@ManyToOne

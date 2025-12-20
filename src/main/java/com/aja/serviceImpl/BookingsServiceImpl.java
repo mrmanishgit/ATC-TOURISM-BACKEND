@@ -1,6 +1,8 @@
 package com.aja.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,19 @@ public class BookingsServiceImpl implements BookingsService {
 	}
 
 	@Override
-	public List<Bookings> viewBookings() {
+	public List<BookingsResponseDto> viewBookings() {
 		// TODO Auto-generated method stub
+		List<Bookings> Booking=bRepo.findAll();
 		
-		return bRepo.findAll();
+		List<BookingsResponseDto> responselist=new ArrayList<>();
+		
+		for(Bookings book:Booking)
+		{
+			BookingsResponseDto dto=new BookingsResponseDto();
+			BeanUtils.copyProperties(book, responselist);
+			responselist.add(dto);
+		}
+		return responselist;
 	}
 
 	@Override
@@ -48,15 +59,44 @@ public class BookingsServiceImpl implements BookingsService {
 	}
 
 	@Override
-	public Bookings viewById(Long bookingId) {
+	public BookingsResponseDto viewById(Long bookingId) {
 		// TODO Auto-generated method stub
-		return bRepo.findById(bookingId).orElse(null);
+		
+		Optional<Bookings> optionalBooking=bRepo.findById(bookingId);
+		if(optionalBooking.isEmpty()) {
+			return null;
+		}
+		 
+		Bookings book=optionalBooking.get();
+		BookingsResponseDto response=new BookingsResponseDto();
+		BeanUtils.copyProperties(book, response);
+		
+		return response;
 	}
 
+	
+
 	@Override
-	public Bookings addBooking(Bookings b) {
+	public String deleteBooking(Long bookingId) {
 		// TODO Auto-generated method stub
-		return null;
+		Optional<Bookings> delById=bRepo.findById(bookingId);
+		Bookings book=null;
+		
+		if(delById.isPresent())
+		{
+			book=delById.get();
+			
+			book.setFlag(false);
+			
+			bRepo.save(book);
+		}
+		if(book!=null)
+		{
+			return "booking deleted successfully";
+		}
+		else {
+			return "booking not deleted successfully";
+		}
 	}
 
 }
