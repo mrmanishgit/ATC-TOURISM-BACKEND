@@ -4,19 +4,16 @@ import java.util.List;
 
 import com.aja.Dto.PaymentsRequestDto;
 import com.aja.Dto.PaymentsResponseDto;
-import com.aja.entity.Payments;
 
 public interface PaymentsService {
 
-	PaymentsResponseDto createPayment(PaymentsRequestDto dto);
+	public PaymentsResponseDto createPayment(PaymentsRequestDto dto);
 
-	public Payments getPaymentById(Long paymentId);
+	public PaymentsResponseDto getPaymentById(Long paymentId);
 
-	//public Payments getByTransactionId(String transactionId);
-	public List<Payments> getByTransactionId(String transactionId);
+	public List<PaymentsResponseDto> getByTransactionId(String transactionId);
 
-	public List<Payments> getAllPayments();
+	public List<PaymentsResponseDto> getAllPayments();
 
-	public Payments updatePayment(Long paymentId, Payments payment);
-
+	public PaymentsResponseDto updatePayment(Long paymentId, PaymentsRequestDto dto);
 }

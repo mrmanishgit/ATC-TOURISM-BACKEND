@@ -31,8 +31,6 @@ public class Users{
 	private String confirmPassword;
 
 	private String profileImage;
-	
-	private String photoUrl;
 
 	private LocalDate dateOfBirth;
 

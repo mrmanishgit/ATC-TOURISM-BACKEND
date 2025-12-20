@@ -34,7 +34,7 @@ public class PlacesController {
 	@GetMapping
 	public ResponseEntity<List<PlacesResponseDto>> getAllPlaces() {
 		List<PlacesResponseDto> viewAllPlaces = placeImpl.viewAllPlaces();
-		return ResponseEntity.ok(viewAllPlaces); 
+		return ResponseEntity.ok(viewAllPlaces);
 	}
 
 	@GetMapping("/{placeId}")
@@ -48,12 +48,12 @@ public class PlacesController {
 		return ResponseEntity.ok(placeImpl.updatePlace(placeId, p));
 	}
 
-	 @DeleteMapping("/softdelete/{id}")
-	    public ResponseEntity<PlacesDeleteResponseDto> softdelete(@PathVariable Long id) {
-	    	
-		 PlacesDeleteResponseDto deletePlace = placeImpl.deletePlace(id);
-		 
-			return ResponseEntity.ok(deletePlace);
-		}
-	
+	@DeleteMapping("/softdelete/{id}")
+	public ResponseEntity<PlacesDeleteResponseDto> softdelete(@PathVariable Long id) {
+
+		PlacesDeleteResponseDto deletePlace = placeImpl.deletePlace(id);
+
+		return ResponseEntity.ok(deletePlace);
+	}
+
 }
