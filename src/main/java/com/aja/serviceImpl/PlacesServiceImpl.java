@@ -69,7 +69,7 @@ public class PlacesServiceImpl implements PlacesService {
 		Places places = UpdateById.get();
 
 		BeanUtils.copyProperties(p, places, "placeId");
-		// update only required or id fields
+		// update only required or id--ignore fields
 		Places updated = pRepo.save(places);
 
 		PlacesResponseDto pres = new PlacesResponseDto();

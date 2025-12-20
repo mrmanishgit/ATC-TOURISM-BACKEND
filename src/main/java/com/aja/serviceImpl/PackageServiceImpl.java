@@ -75,11 +75,6 @@ public class PackageServiceImpl implements PackageService {
 	else {
 		return "Package is not deleted";
 	}
-	
-	
-	
-	
-	
 	}
 	
 

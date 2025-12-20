@@ -29,7 +29,7 @@ public class Payments {
 
 	private Double paidAmount;
 
-	private LocalDateTime paidAt;
+	private LocalDateTime paidAt;	
 
 //	Relationships
 	

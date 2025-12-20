@@ -22,7 +22,7 @@ public class StatesServiceImpl implements StatesService {
 		BeanUtils.copyProperties(sr, s);
 		States savent=sRepo.save(s);
 		StatesResponseDto dto=new StatesResponseDto();
-		BeanUtils.copyProperties(s, dto);	
+		BeanUtils.copyProperties(savent, dto);	
 		return dto;
 	}
 
