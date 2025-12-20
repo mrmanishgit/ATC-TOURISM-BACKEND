@@ -8,9 +8,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.BookingDeleteResponseDto;
+import com.aja.Dto.BookingsResponseDto;
 import com.aja.Dto.StatesResponseDto;
+import com.aja.Dto.TestimonialsDeleteResponseDto;
 import com.aja.Dto.TestimonialsRequestDto;
 import com.aja.Dto.TestimonialsResponseDto;
+import com.aja.entity.Bookings;
 import com.aja.entity.States;
 import com.aja.entity.Testimonials;
 import com.aja.repository.TestimonialsRepo;
@@ -47,62 +51,56 @@ public class TestimonialsServiceImpl implements TestimonialsService {
 		for(Testimonials t: test)
 		{
 			TestimonialsResponseDto dto=new TestimonialsResponseDto();
-			BeanUtils.copyProperties(test, response);
+			BeanUtils.copyProperties(t,dto);
 			response.add(dto);
 		}
 		return response;
 	}
 
 	@Override
-	public Testimonials updateTestimonial(Long id, Testimonials t) {
-
-		Testimonials existing = tRepo.findById(id)
-				.orElseThrow(() -> new RuntimeException("Testimonial not found with id: " + id));
-
-		if (t.getName() != null) {
-			existing.setName(t.getName());
+	public TestimonialsResponseDto updateTestimonial(Long id, TestimonialsRequestDto t) {
+		Optional<Testimonials> UpdateById = tRepo.findById(id);
+		if (UpdateById.isEmpty()) {
+			return null;
 		}
-
-		if (t.getRating() != null) {
-			existing.setRating(t.getRating());
-		}
-
-		if (t.getReview() != null) {
-			existing.setReview(t.getReview());
-		}
-
-		if (t.getImage() != null) {
-			existing.setImage(t.getImage());
-		}
-
-		return tRepo.save(existing);
-		// TODO Auto-generated method stub
-
+ 
+		Testimonials testmonials = UpdateById.get();
+ 
+		BeanUtils.copyProperties(t, testmonials, "testmonialId");
+		// update only required or id fields
+		Testimonials updated = tRepo.save(testmonials);
+ 
+		TestimonialsResponseDto tres = new TestimonialsResponseDto();
+ 
+		BeanUtils.copyProperties(updated, tres);
+ 
+		return tres;
 		}
 
 	@Override
-	public String deleteTestnomial(Long id) {
+	public TestimonialsDeleteResponseDto deleteTestnomial(Long id) {
 		// TODO Auto-generated method stub
 		
-		Optional<Testimonials> delById=tRepo.findById(id);
-		Testimonials test=null;
-		
-		if(delById.isPresent())
-		{
-			test=delById.get();
-			test.setFlag(false);
-			tRepo.save(test);
-			
+		Optional<Testimonials> byId = tRepo.findById(id);
+		 
+		TestimonialsDeleteResponseDto tdelRes = new TestimonialsDeleteResponseDto();
+ 
+		if (byId.isPresent()) {
+			Testimonials t = byId.get();
+//			soft delete by flag
+			t.setFlag(false);
+			tRepo.save(t);
+			tdelRes.setDeleted(true);
+			tdelRes.setMessage("Place Deleted Successfully");
+ 
 		}
-		if(test != null)
-		{
-			return "testmonial deleted succesfully";
+		else {
+			tdelRes.setDeleted(false);
+			tdelRes.setMessage("Place Not  Deleted Successfully");
 		}
-		else 
-		{
-			return "testmonial not deleted successfully";
-		}
+		return tdelRes;
 	}
+	
 
 	@Override
 	public TestimonialsResponseDto viewById(Long id) {

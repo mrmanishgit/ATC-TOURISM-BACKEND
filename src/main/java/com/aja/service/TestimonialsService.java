@@ -2,6 +2,7 @@ package com.aja.service;
 
 import java.util.List;
 
+import com.aja.Dto.TestimonialsDeleteResponseDto;
 import com.aja.Dto.TestimonialsRequestDto;
 import com.aja.Dto.TestimonialsResponseDto;
 import com.aja.entity.Testimonials;
@@ -14,7 +15,7 @@ public interface TestimonialsService {
 	
 	public TestimonialsResponseDto viewById(Long id);
 
-	public Testimonials updateTestimonial(Long id, Testimonials t);
+	public TestimonialsResponseDto updateTestimonial(Long id, TestimonialsRequestDto t);
 
-	public String deleteTestnomial(Long id);
+	public TestimonialsDeleteResponseDto deleteTestnomial(Long id);
 }

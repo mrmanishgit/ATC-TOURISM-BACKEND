@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.StatesDeleteResponseDto;
 import com.aja.Dto.StatesRequestDto;
 import com.aja.Dto.StatesResponseDto;
 import com.aja.entity.States;
@@ -44,15 +45,19 @@ public class StatesController {
 	}
 
 	@PutMapping("/update/{stateId}")
-	public States upadteStates(@PathVariable Long stateId,@RequestBody States s)
+	public ResponseEntity<StatesResponseDto> upadteStates(@PathVariable Long stateId,@RequestBody StatesRequestDto sreq)
 	{
-		return sImpl.updateState(stateId, s);
+		StatesResponseDto res=sImpl.updateState(stateId, sreq);
+		return ResponseEntity.ok(res);
+		
 	}
-	@DeleteMapping("/remove/{stateId}")
-	public ResponseEntity<String> softDelete(@PathVariable Long stateId) 
-	{
-	    sImpl.deleteState(stateId);
-	    return ResponseEntity.ok("State removed successfully");
+	@DeleteMapping("/softdelete/{id}")
+    public ResponseEntity<StatesDeleteResponseDto> softdelete(@PathVariable Long id) {
+    	
+	 StatesDeleteResponseDto deleteState = sImpl.deleteState(id);
+	
+		return ResponseEntity.ok(deleteState);
 	}
+
 
 }
