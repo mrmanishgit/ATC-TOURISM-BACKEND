@@ -10,8 +10,11 @@ public interface TestimonialsService {
 
 	public TestimonialsResponseDto addTestmonial(TestimonialsRequestDto tm);
 
-	public List<Testimonials> viewAll();
+	public List<TestimonialsResponseDto> viewAll();
+	
+	public TestimonialsResponseDto viewById(Long id);
 
 	public Testimonials updateTestimonial(Long id, Testimonials t);
 
+	public String deleteTestnomial(Long id);
 }
