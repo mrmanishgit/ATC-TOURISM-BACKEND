@@ -24,9 +24,9 @@ public class StatesServiceImpl implements StatesService {
 		// TODO Auto-generated method stub
 		States s = new States();
 		BeanUtils.copyProperties(sr, s);
-		States savent = sRepo.save(s);
-		StatesResponseDto dto = new StatesResponseDto();
-		BeanUtils.copyProperties(s, dto);
+		States savent=sRepo.save(s);
+		StatesResponseDto dto=new StatesResponseDto();
+		BeanUtils.copyProperties(savent, dto);	
 		return dto;
 	}
 

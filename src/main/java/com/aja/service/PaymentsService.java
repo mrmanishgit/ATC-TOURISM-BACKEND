@@ -8,14 +8,13 @@ import com.aja.Dto.PaymentsResponseDto;
 
 public interface PaymentsService {
 
-	PaymentsResponseDto createPayment(PaymentsRequestDto dto);
-
-	public List<PaymentsResponseDto> getAllPayments();
+	public PaymentsResponseDto createPayment(PaymentsRequestDto dto);
 
 	public PaymentsResponseDto getPaymentById(Long paymentId);
 
-	public PaymentsResponseDto updatePayment(Long paymentId, PaymentsResponseDto payres);
+	public List<PaymentsResponseDto> getByTransactionId(String transactionId);
 
-	public PaymentDeleteResponseDto deletePayment(Long paymentId);
+	public List<PaymentsResponseDto> getAllPayments();
 
+	public PaymentsResponseDto updatePayment(Long paymentId, PaymentsRequestDto dto);
 }

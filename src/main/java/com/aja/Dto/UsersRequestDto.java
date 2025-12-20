@@ -25,7 +25,7 @@ public class UsersRequestDto {
 
 	private String profileImage;
 
-	private String photoUrl;
+	
 
 	private LocalDate dateOfBirth;
 

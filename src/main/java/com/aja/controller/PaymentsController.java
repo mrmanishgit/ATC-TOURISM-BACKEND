@@ -20,14 +20,39 @@ import com.aja.Dto.PaymentsResponseDto;
 import com.aja.service.PaymentsService;
 
 @RestController
-
 @RequestMapping("/api/payment")
 @CrossOrigin("*")
 public class PaymentsController {
+
 	@Autowired
 	private PaymentsService paymentsService;
 
 	@PostMapping("/add")
+
+	public ResponseEntity<PaymentsResponseDto> createPayment(
+			@RequestBody PaymentsRequestDto dto) {
+
+		PaymentsResponseDto payment = paymentsService.createPayment(dto);
+		return ResponseEntity.ok(payment);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<PaymentsResponseDto> getPaymentById(
+			@PathVariable Long id) {
+
+		PaymentsResponseDto payment = paymentsService.getPaymentById(id);
+		return ResponseEntity.ok(payment);
+	}
+
+	@GetMapping("/transaction/{transactionId}")
+	public ResponseEntity<List<PaymentsResponseDto>> getByTransactionId(
+			@PathVariable String transactionId) {
+
+		List<PaymentsResponseDto> payments =
+				paymentsService.getByTransactionId(transactionId);
+
+		return ResponseEntity.ok(payments);
+
 	public ResponseEntity<PaymentsResponseDto> createPayment(@RequestBody PaymentsRequestDto dto) {
 		return ResponseEntity.ok(paymentsService.createPayment(dto));
 
@@ -37,28 +62,26 @@ public class PaymentsController {
 	public ResponseEntity<PaymentsResponseDto> getPaymentById(@PathVariable("id") Long id) {
 		PaymentsResponseDto payment = paymentsService.getPaymentById(id);
 		return ResponseEntity.ok(payment);
+
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<List<PaymentsResponseDto>> getAllPayments() {
-		List<PaymentsResponseDto> pay = paymentsService.getAllPayments();
-		return ResponseEntity.ok(pay);
+
+		List<PaymentsResponseDto> payments =
+				paymentsService.getAllPayments();
+
+		return ResponseEntity.ok(payments);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<PaymentsResponseDto> updatePayment(@PathVariable Long id,
-			@RequestBody PaymentsResponseDto paymentDto) {
+	public ResponseEntity<PaymentsResponseDto> updatePayment(
+			@PathVariable Long id,
+			@RequestBody PaymentsRequestDto dto) {
 
-		PaymentsResponseDto updated = paymentsService.updatePayment(id, paymentDto);
+		PaymentsResponseDto payment =
+				paymentsService.updatePayment(id, dto);
 
-		return ResponseEntity.ok(updated);
+		return ResponseEntity.ok(payment);
 	}
-
-	@DeleteMapping("/remove/{id}")
-	public ResponseEntity<PaymentDeleteResponseDto>  softDelete(@PathVariable Long id) {
-		
-		PaymentDeleteResponseDto deletepayment= paymentsService.deletePayment(id);
-		return ResponseEntity.ok(deletepayment);
-	}
-
 }

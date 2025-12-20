@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,18 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.UsersDeleteResponseDto;
 import com.aja.Dto.UsersRequestDto;
 import com.aja.Dto.UsersResponseDto;
-import com.aja.entity.Users;
-import com.aja.serviceImpl.UserServiceImpl;
+import com.aja.service.UsersService;
 
 @RestController
-
 @RequestMapping("/api/users")
 @CrossOrigin("*")
 public class UsersController {
 
 	@Autowired
+
+	private UsersService userService;
+
+	// register user
+	@PostMapping
+	public ResponseEntity<UsersResponseDto> registerUser(@RequestBody UsersRequestDto u) {
+
+		UsersResponseDto uRes = userService.registerUsers(u);
+		return ResponseEntity.ok(uRes);
+	}
+
+	// get all users
+
 	private UserServiceImpl userImpl;
 
 	@PostMapping("/add")
@@ -42,23 +55,31 @@ public class UsersController {
 	}
 
 	@GetMapping("/all")
-	public List<Users> getAllUsers() {
-		return userImpl.getAllUsers();
-
+	public List<UsersResponseDto> getAllUsers() {
+		return userService.getAllUsers();
 	}
 
+//	update user
 	@PutMapping("/update/{id}")
-	public Users updateUser(@PathVariable Long id, @RequestBody Users user) {
-		return userImpl.updateUser(id, user);
+	public ResponseEntity<UsersResponseDto> updateUser(@PathVariable Long id, @RequestBody UsersRequestDto user) {
+
+		UsersResponseDto updated = userService.updateUser(id, user);
+		return ResponseEntity.ok(updated);
 	}
 
+//	login
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody UsersRequestDto request) {
-		try {
-			Users user = userImpl.login(request.getEmail(), request.getPassword());
-			return ResponseEntity.ok(user);
-		} catch (RuntimeException ex) {
-			return ResponseEntity.status(401).body(ex.getMessage());
-		}
+	public ResponseEntity<UsersResponseDto> login(@RequestBody UsersRequestDto request) {
+
+		UsersResponseDto user = userService.login(request.getEmail(), request.getPassword());
+
+		return ResponseEntity.ok(user);
+	}
+
+	// soft del
+	@DeleteMapping("/delete/{id}")
+	public UsersDeleteResponseDto deleteUser(@PathVariable Long id) {
+
+		return userService.deleteUser(id);
 	}
 }

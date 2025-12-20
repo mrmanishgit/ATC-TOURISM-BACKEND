@@ -23,63 +23,54 @@ import com.aja.service.PaymentsService;
 public class PaymentsServiceImpl implements PaymentsService {
 
 	@Autowired
-	private PaymentsRepo paymentsRepository;
-	@Autowired
-    private UsersRepo usersRepository;
-    @Autowired
-    private BookingsRepo bookingsRepository;
-
+	private PaymentsRepo paymentsRepo;
 
 	/* Add payment details */
 	@Override
-	public PaymentsResponseDto createPayment(PaymentsRequestDto pdto) {
+	public PaymentsResponseDto createPayment(PaymentsRequestDto dto) {
 
-		Payments py = new Payments();
-		BeanUtils.copyProperties(pdto, py);
-		
-		Users user = usersRepository.findById(pdto.getUserId()).orElse(null);
-		py.setUser(user);
-		
-		Bookings booking = bookingsRepository.findById(pdto.getBookingId()).orElse(null);
-		py.setBooking(booking);
-		
-		Payments saveEnt = paymentsRepository.save(py);
-		PaymentsResponseDto pyrd = new PaymentsResponseDto();
-		BeanUtils.copyProperties(saveEnt, pyrd);
-		
-	
-		pyrd.setUserId(saveEnt.getUser().getUserId());
-        pyrd.setBookingId(saveEnt.getBooking().getBookingId());
-        
-		return pyrd;
+		Payments payment = new Payments();
+		BeanUtils.copyProperties(dto, payment);
+
+		Payments saved = paymentsRepo.save(payment);
+
+		PaymentsResponseDto res = new PaymentsResponseDto();
+		BeanUtils.copyProperties(saved, res);
+
+		return res;
 	}
 
 	/* payment details visible by id */
 	@Override
 	public PaymentsResponseDto getPaymentById(Long paymentId) {
 
-		Optional<Payments> py = paymentsRepository.findById(paymentId);
-		if (py.isPresent()) {
-			PaymentsResponseDto dto = new PaymentsResponseDto();
-			BeanUtils.copyProperties(py.get(), dto);
+		Optional<Payments> byId = paymentsRepo.findById(paymentId);
 
-			return dto;
+		if (byId.isEmpty()) {
+			return null;
 		}
-		return null;
+
+		PaymentsResponseDto res = new PaymentsResponseDto();
+		BeanUtils.copyProperties(byId.get(), res);
+
+		return res;
 	}
 
 	/* All payment details */
 	@Override
-	public List<PaymentsResponseDto> getAllPayments() {
-		// TODO Auto-generated method stub
-		List<Payments> paymentsList = paymentsRepository.findAll();
-		List<PaymentsResponseDto> resList = new ArrayList<>();
-		for (Payments pay : paymentsList) {
+	public List<PaymentsResponseDto> getByTransactionId(String transactionId) {
 
+		List<Payments> payments =
+				paymentsRepo.findByTransactionId(transactionId);
+
+		List<PaymentsResponseDto> resList = new ArrayList<>();
+
+		for (Payments p : payments) {
 			PaymentsResponseDto dto = new PaymentsResponseDto();
-			BeanUtils.copyProperties(pay, dto);
+			BeanUtils.copyProperties(p, dto);
 			resList.add(dto);
 		}
+
 		return resList;
 	}
 	
@@ -87,53 +78,41 @@ public class PaymentsServiceImpl implements PaymentsService {
 
 	/* updated by id */
 	@Override
-	public PaymentsResponseDto updatePayment(Long paymentId, PaymentsResponseDto payres) {
+	public List<PaymentsResponseDto> getAllPayments() {
 
-		Optional<Payments> UpdateById = paymentsRepository.findById(paymentId);
-		if (UpdateById.isEmpty()) {
-			return null;
+		List<Payments> payments = paymentsRepo.findAll();
+		List<PaymentsResponseDto> resList = new ArrayList<>();
+
+		for (Payments p : payments) {
+			PaymentsResponseDto dto = new PaymentsResponseDto();
+			BeanUtils.copyProperties(p, dto);
+			resList.add(dto);
 		}
 
-		Payments pay = UpdateById.get();
-
-		BeanUtils.copyProperties(payres, pay, "paymentId");
-		// update only required or id fields
-		Payments updated = paymentsRepository.save(pay);
-
-		PaymentsResponseDto pres = new PaymentsResponseDto();
-
-		BeanUtils.copyProperties(updated, pres);
-
-		return pres;
-
+		return resList;
 	}
 
 	/* Delete payment details */
 	@Override
-	public PaymentDeleteResponseDto deletePayment(Long paymentId) {
-		// TODO Auto-generated method stub
-		Optional<Payments> delbyId = paymentsRepository.findById(paymentId);
+	public PaymentsResponseDto updatePayment(
+			Long paymentId,
+			PaymentsRequestDto dto) {
 
-		PaymentDeleteResponseDto payred = new PaymentDeleteResponseDto();
+		Optional<Payments> byId = paymentsRepo.findById(paymentId);
 
-		Payments obj = null;
-
-		if (delbyId.isPresent()) {
-			obj = delbyId.get();
-
-			obj.setFlag(false);
-
-			paymentsRepository.save(obj);
-			payred.setDeleted(true);
-			payred.setMessage("Payment Deleted Successfully");
+		if (byId.isEmpty()) {
+			return null;
 		}
 
-		else {
-			payred.setDeleted(false);
-			payred.setMessage("Payment Not  Deleted Successfully");
-		}
+		Payments payment = byId.get();
+		BeanUtils.copyProperties(dto, payment, "paymentId");
 
-		return payred;
+		Payments updated = paymentsRepo.save(payment);
+
+		PaymentsResponseDto res = new PaymentsResponseDto();
+		BeanUtils.copyProperties(updated, res);
+
+		return res;
 	}
 
 }

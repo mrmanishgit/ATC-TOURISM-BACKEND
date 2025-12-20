@@ -8,8 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TestimonialsRequestDto {
-
-	private Long testId;
+	
 	private String name;
 	private String rating;
 	private String review;

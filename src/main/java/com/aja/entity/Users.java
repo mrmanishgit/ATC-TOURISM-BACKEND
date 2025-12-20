@@ -25,10 +25,10 @@ public class Users {
 	private Long userId;
 	private String fullName;
 	private String password;
+	
 	private String confirmPassword;
 
 	private String profileImage;
-	private String photoUrl;
 
 	private LocalDate dateOfBirth;
 
@@ -38,6 +38,10 @@ public class Users {
 	
 	private IdentityProofType identityProofType;
 	private String identityProofNumber;
+	
+	private boolean isFlag = true;
+	
+	
 
 //	Relationships
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
