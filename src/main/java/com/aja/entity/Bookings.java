@@ -1,6 +1,5 @@
 package com.aja.entity;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -18,42 +17,45 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-public class Bookings{
+public class Bookings {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long bookingId;
 
-    private LocalDate travelDate;
+	private LocalDate travelDate;
 
-    private Integer noOfAdults;
+	private Integer noOfAdults;
 
-    private Integer noOfChildren;
+	private Integer noOfChildren;
 
-    private String bookingStatus;
+	private String bookingStatus;
 
-    private LocalDateTime createdAt;
+
+	private LocalDateTime createdAt;
+
+	// Many bookings -> one user
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private Users user;
+
+	@ManyToOne
+	@JoinColumn(name = "package_id")
+	private Packages packages;
+
+	@ManyToOne
+	@JoinColumn(name = "hoteltype_id")
+	private HotelTypes hoteltype;
+
+	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+	private Payments payment;
+
+	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+	private BookingPricing bookingpricing;
+
+   
     private boolean isFlag=true;
    
- // Many bookings -> one user
-    
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-   private Users user;
-    
-    @ManyToOne
-    @JoinColumn(name = "package_id")
-    private Packages packages;
-    
-    
-    @ManyToOne
-    @JoinColumn(name = "hoteltype_id")
-    private HotelTypes hoteltype;
-    
-    
-    @OneToOne(mappedBy = "booking",cascade = CascadeType.ALL)
-    private Payments payment;
-    
-    @OneToOne(mappedBy = "booking",cascade = CascadeType.ALL)
-    private BookingPricing bookingpricing;
+ 
 
 }

@@ -20,11 +20,11 @@ public class HotelTypesServiceImpl implements HotelTypesService {
 	@Override
 	public HotelTypesResponseDto saveHotel(HotelTypesRequestDto hotelTypes) {
 		// TODO Auto-generated method stub
-		
-		HotelTypes h=new HotelTypes();
+
+		HotelTypes h = new HotelTypes();
 		BeanUtils.copyProperties(hotelTypes, h);
-		HotelTypes savent=hotelTypesRepo.save(h);
-		HotelTypesResponseDto hdto=new HotelTypesResponseDto();
+		HotelTypes savent = hotelTypesRepo.save(h);
+		HotelTypesResponseDto hdto = new HotelTypesResponseDto();
 		BeanUtils.copyProperties(savent, hdto);
 		return hdto;
 	}

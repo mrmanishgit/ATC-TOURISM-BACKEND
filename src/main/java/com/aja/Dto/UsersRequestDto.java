@@ -25,9 +25,10 @@ public class UsersRequestDto {
 
 	private String profileImage;
 
-	private String photoUrl;
+	
 
 	private LocalDate dateOfBirth;
+
 
 	private LocalDateTime createdAt = LocalDateTime.now();
 	
@@ -42,4 +43,5 @@ public class UsersRequestDto {
 
 	private String identityProofNumber;
 
-}
+	}
+

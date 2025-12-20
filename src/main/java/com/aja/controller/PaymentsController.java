@@ -1,9 +1,11 @@
 package com.aja.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,48 +14,74 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aja.Dto.PaymentDeleteResponseDto;
 import com.aja.Dto.PaymentsRequestDto;
 import com.aja.Dto.PaymentsResponseDto;
-import com.aja.entity.Payments;
 import com.aja.service.PaymentsService;
 
 @RestController
-
 @RequestMapping("/api/payment")
 @CrossOrigin("*")
 public class PaymentsController {
+
 	@Autowired
 	private PaymentsService paymentsService;
 
 	@PostMapping("/add")
-	public ResponseEntity<PaymentsResponseDto> createPayment(@RequestBody PaymentsRequestDto dto) {
-		return ResponseEntity.ok(paymentsService.createPayment(dto));
+
+	public ResponseEntity<PaymentsResponseDto> createPayment(
+			@RequestBody PaymentsRequestDto dto) {
+
+		PaymentsResponseDto payment = paymentsService.createPayment(dto);
+		return ResponseEntity.ok(payment);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Payments> getPaymentById(@PathVariable Long id) {
-		return ResponseEntity.ok(paymentsService.getPaymentById(id));
+	public ResponseEntity<PaymentsResponseDto> getPaymentById(
+			@PathVariable Long id) {
+
+		PaymentsResponseDto payment = paymentsService.getPaymentById(id);
+		return ResponseEntity.ok(payment);
 	}
 
-//	@GetMapping("/transaction/{transactionId}")
-//	public ResponseEntity<Payments> getByTransactionId(@PathVariable String transactionId) {
-//		return ResponseEntity.ok(paymentsService.getByTransactionId(transactionId));
-//	}
-
 	@GetMapping("/transaction/{transactionId}")
-	public ResponseEntity<List<Payments>> getByTransactionId(@PathVariable String transactionId) {
-		return ResponseEntity.ok(paymentsService.getByTransactionId(transactionId));
+	public ResponseEntity<List<PaymentsResponseDto>> getByTransactionId(
+			@PathVariable String transactionId) {
+
+		List<PaymentsResponseDto> payments =
+				paymentsService.getByTransactionId(transactionId);
+
+		return ResponseEntity.ok(payments);
+
+	public ResponseEntity<PaymentsResponseDto> createPayment(@RequestBody PaymentsRequestDto dto) {
+		return ResponseEntity.ok(paymentsService.createPayment(dto));
+
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<PaymentsResponseDto> getPaymentById(@PathVariable("id") Long id) {
+		PaymentsResponseDto payment = paymentsService.getPaymentById(id);
+		return ResponseEntity.ok(payment);
+
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<List<Payments>> getAllPayments() {
-		return ResponseEntity.ok(paymentsService.getAllPayments());
+	public ResponseEntity<List<PaymentsResponseDto>> getAllPayments() {
+
+		List<PaymentsResponseDto> payments =
+				paymentsService.getAllPayments();
+
+		return ResponseEntity.ok(payments);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Payments> updatePayment(@PathVariable Long id, @RequestBody Payments payment) {
-		return ResponseEntity.ok(paymentsService.updatePayment(id, payment));
+	public ResponseEntity<PaymentsResponseDto> updatePayment(
+			@PathVariable Long id,
+			@RequestBody PaymentsRequestDto dto) {
+
+		PaymentsResponseDto payment =
+				paymentsService.updatePayment(id, dto);
+
+		return ResponseEntity.ok(payment);
 	}
-
-
 }

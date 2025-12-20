@@ -34,6 +34,14 @@ public class Users {
 
 	private String photoUrl;
 
+	private String fullName;
+	private String password;
+	
+	private String confirmPassword;
+
+	private String profileImage;
+
+
 	private LocalDate dateOfBirth;
 
 	private LocalDateTime createdAt = LocalDateTime.now();
@@ -57,4 +65,7 @@ public class Users {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Payments> payment = new ArrayList<>();
 
+}
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Payments> payment = new ArrayList<>();
 }

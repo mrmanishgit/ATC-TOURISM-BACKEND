@@ -18,6 +18,30 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Places {
+	public Long getPlaceId() {
+		return placeId;
+	}
+
+	public void setPlaceId(Long placeId) {
+		this.placeId = placeId;
+	}
+
+	public String getPlaceName() {
+		return placeName;
+	}
+
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long placeId;
@@ -25,15 +49,15 @@ public class Places {
 	private String placeName;
 
 	private String description;
+
+//	@Column(name = "is_flag", nullable = false)
+	private Boolean isFlag = true;
 	
 	@ManyToOne
 	@JoinColumn(name = "state_id")
 	private States state;
-	
-	@OneToMany(mappedBy = "place",cascade = CascadeType.ALL)
-	private List<PackageLocations> packageLocations = new ArrayList<>() ;
-	
+
+	@OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+	private List<PackageLocations> packageLocations = new ArrayList<>();
+
 }
-
-
-

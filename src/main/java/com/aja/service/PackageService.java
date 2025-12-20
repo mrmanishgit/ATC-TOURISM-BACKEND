@@ -2,16 +2,19 @@ package com.aja.service;
 
 import java.util.List;
 
+import com.aja.Dto.PackageDeleteResponseDto;
 import com.aja.Dto.PackagesRequestDto;
 import com.aja.Dto.PackagesResponseDto;
-import com.aja.entity.Packages;
 
 public interface PackageService {
-	public PackagesResponseDto addPackage(PackagesRequestDto p);
 
-	public List<Packages> viewPackages();
+    public PackagesResponseDto addPackage(PackagesRequestDto dto);
 
-	public Packages getPackage(Long packageId);
+    public List<PackagesResponseDto> viewPackages();
 
-	public Packages updatePackage(Long packageId, Packages p);
+    public PackagesResponseDto getPackage(Long packageId);
+
+    public PackagesResponseDto updatePackage(Long packageId, PackagesRequestDto dto);
+
+    public PackageDeleteResponseDto deletePackage(Long id);
 }

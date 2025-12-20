@@ -19,20 +19,19 @@ public class Testimonials {
 
 	private String name;
 	private String rating;
+
 	private String review;
 	private String image;
 	private boolean isFlag=true;
 	
 //	Relationships
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private Users user;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "package_id")
 	private Packages packages;
-	
-	
 
 }

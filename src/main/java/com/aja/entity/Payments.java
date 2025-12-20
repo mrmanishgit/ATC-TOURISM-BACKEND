@@ -3,7 +3,6 @@ package com.aja.entity;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +28,7 @@ public class Payments {
 
 	private Double paidAmount;
 
-	private LocalDateTime paidAt;
+	private LocalDateTime paidAt;	
 
 //	Relationships
 	
@@ -41,5 +40,5 @@ public class Payments {
 	@JoinColumn(name = "booking_id")
 	private Bookings booking;
 	
-	
+	private boolean isFlag=true;//soft delete flag
 }

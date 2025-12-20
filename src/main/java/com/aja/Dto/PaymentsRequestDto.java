@@ -10,47 +10,6 @@ import lombok.Setter;
 @Setter
 public class PaymentsRequestDto {
 
-	public String getTransactionId() {
-		return transactionId;
-	}
-
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
-	}
-
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
-
-	public String getPaymentStatus() {
-		return paymentStatus;
-	}
-
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
-
-	public Double getPaidAmount() {
-		return paidAmount;
-	}
-
-	public void setPaidAmount(Double paidAmount) {
-		this.paidAmount = paidAmount;
-	}
-
-	public LocalDateTime getPaidAt() {
-		return paidAt;
-	}
-
-	public void setPaidAt(LocalDateTime paidAt) {
-		this.paidAt = paidAt;
-	}
-
-	
 	private String transactionId;
 
 	private String paymentMethod;
@@ -58,6 +17,10 @@ public class PaymentsRequestDto {
 	private String paymentStatus;
 
 	private Double paidAmount;
+	
+	private Long userId;
+	private Long bookingId;
+
 
 	private LocalDateTime paidAt;
 
