@@ -30,6 +30,7 @@ public class Bookings {
 
 	private String bookingStatus;
 
+<<<<<<< HEAD
 	private LocalDateTime createdAt;
 
 	// Many bookings -> one user
@@ -51,5 +52,31 @@ public class Bookings {
 
 	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
 	private BookingPricing bookingpricing;
+=======
+    private LocalDateTime createdAt;
+    private boolean isFlag=true;
+   
+ // Many bookings -> one user
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+   private Users user;
+    
+    @ManyToOne
+    @JoinColumn(name = "package_id")
+    private Packages packages;
+    
+    
+    @ManyToOne
+    @JoinColumn(name = "hoteltype_id")
+    private HotelTypes hoteltype;
+    
+    
+    @OneToOne(mappedBy = "booking",cascade = CascadeType.ALL)
+    private Payments payment;
+    
+    @OneToOne(mappedBy = "booking",cascade = CascadeType.ALL)
+    private BookingPricing bookingpricing;
+>>>>>>> 1ce2f80b13c6c00a8a906bb5a0ccf9867f09fe8c
 
 }

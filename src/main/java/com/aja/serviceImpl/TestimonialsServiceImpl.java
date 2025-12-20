@@ -1,13 +1,17 @@
 package com.aja.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aja.Dto.StatesResponseDto;
 import com.aja.Dto.TestimonialsRequestDto;
 import com.aja.Dto.TestimonialsResponseDto;
+import com.aja.entity.States;
 import com.aja.entity.Testimonials;
 import com.aja.repository.TestimonialsRepo;
 import com.aja.service.TestimonialsService;
@@ -34,9 +38,19 @@ public class TestimonialsServiceImpl implements TestimonialsService {
 	}
 
 	@Override
-	public List<Testimonials> viewAll() {
+	public List<TestimonialsResponseDto> viewAll() {
 		// TODO Auto-generated method stub
-		return tRepo.findAll();
+		List<Testimonials>  test=tRepo.findAll();
+		
+		List<TestimonialsResponseDto> response=new ArrayList<>();
+		
+		for(Testimonials t: test)
+		{
+			TestimonialsResponseDto dto=new TestimonialsResponseDto();
+			BeanUtils.copyProperties(test, response);
+			response.add(dto);
+		}
+		return response;
 	}
 
 	@Override
@@ -65,5 +79,51 @@ public class TestimonialsServiceImpl implements TestimonialsService {
 		// TODO Auto-generated method stub
 
 		}
+
+	@Override
+	public String deleteTestnomial(Long id) {
+		// TODO Auto-generated method stub
 		
+		Optional<Testimonials> delById=tRepo.findById(id);
+		Testimonials test=null;
+		
+		if(delById.isPresent())
+		{
+			test=delById.get();
+			test.setFlag(false);
+			tRepo.save(test);
+			
+		}
+		if(test != null)
+		{
+			return "testmonial deleted succesfully";
+		}
+		else 
+		{
+			return "testmonial not deleted successfully";
+		}
+	}
+
+	@Override
+	public TestimonialsResponseDto viewById(Long id) {
+		// TODO Auto-generated method stub
+		
+			    Optional<Testimonials> optionalTest = tRepo.findById(id);
+			 
+			    if (optionalTest.isEmpty())
+			    {
+			        return null;   
+			    }
+			 
+			    Testimonials test = optionalTest.get();
+			 
+			    TestimonialsResponseDto response = new TestimonialsResponseDto();
+			    BeanUtils.copyProperties(test, response);
+	
+			    return response;
+			
+		
+	}
+	
+	
 	}

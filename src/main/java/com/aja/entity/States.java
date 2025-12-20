@@ -20,7 +20,7 @@ public class States {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long stateId;
 	private String stateName;
-
+	private boolean isFlag=true;
 	
 //	Relationships
 

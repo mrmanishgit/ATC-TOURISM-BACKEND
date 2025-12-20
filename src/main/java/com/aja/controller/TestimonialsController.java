@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.CrossOrigin;
+=======
+import org.springframework.web.bind.annotation.DeleteMapping;
+>>>>>>> 1ce2f80b13c6c00a8a906bb5a0ccf9867f09fe8c
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,9 +39,10 @@ public class TestimonialsController {
 		return ResponseEntity.ok(tdto);
 	}
 	@GetMapping("/all")
-	public List<Testimonials> viewAll()
+	public ResponseEntity<List<TestimonialsResponseDto>> viewAll()
 	{
-		return tServiceImpl.viewAll();
+		List<TestimonialsResponseDto> testmonial=tServiceImpl.viewAll();
+		return ResponseEntity.ok(testmonial);
 	}
 
 	@PutMapping("/update/{id}")
@@ -45,5 +50,11 @@ public class TestimonialsController {
 
 	{
 		return tServiceImpl.updateTestimonial(id, t);
+	}
+	@DeleteMapping("/remove/{id}")
+	public ResponseEntity<String> softdelete(@PathVariable Long id)
+	{
+		tServiceImpl.deleteTestnomial(id);
+		return ResponseEntity.ok("testmonial deleted successfully");
 	}
 }
