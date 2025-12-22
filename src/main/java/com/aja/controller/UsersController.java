@@ -24,21 +24,19 @@ import com.aja.service.UsersService;
 @CrossOrigin("*")
 public class UsersController {
 
-	@Autowired
-
-	private UsersService userService;
+	 @Autowired
+	private UserServiceImpl userImpl;
 
 	// register user
 	@PostMapping
 	public ResponseEntity<UsersResponseDto> registerUser(@RequestBody UsersRequestDto u) {
 
-		UsersResponseDto uRes = userService.registerUsers(u);
+		UsersResponseDto uRes = userImpl.registerUsers(u);
 		return ResponseEntity.ok(uRes);
 	}
 
 	// get all users
-
-	private UserServiceImpl userImpl;
+   
 
 	@PostMapping("/add")
 //	public Users getUser(@RequestBody Users u)
@@ -63,7 +61,7 @@ public class UsersController {
 	@PutMapping("/update/{id}")
 	public ResponseEntity<UsersResponseDto> updateUser(@PathVariable Long id, @RequestBody UsersRequestDto user) {
 
-		UsersResponseDto updated = userService.updateUser(id, user);
+		UsersResponseDto updated = userImpl.updateUser(id, user);
 		return ResponseEntity.ok(updated);
 	}
 
@@ -71,7 +69,7 @@ public class UsersController {
 	@PostMapping("/login")
 	public ResponseEntity<UsersResponseDto> login(@RequestBody UsersRequestDto request) {
 
-		UsersResponseDto user = userService.login(request.getEmail(), request.getPassword());
+		UsersResponseDto user = userImpl.login(request.getEmail(), request.getPassword());
 
 		return ResponseEntity.ok(user);
 	}
@@ -80,6 +78,6 @@ public class UsersController {
 	@DeleteMapping("/delete/{id}")
 	public UsersDeleteResponseDto deleteUser(@PathVariable Long id) {
 
-		return userService.deleteUser(id);
+		return userImpl.deleteUser(id);
 	}
 }
