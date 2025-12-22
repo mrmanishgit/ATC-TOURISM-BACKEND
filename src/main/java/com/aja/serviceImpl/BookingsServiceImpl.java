@@ -2,7 +2,6 @@ package com.aja.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,105 +10,110 @@ import org.springframework.stereotype.Service;
 import com.aja.Dto.BookingDeleteResponseDto;
 import com.aja.Dto.BookingsRequestDto;
 import com.aja.Dto.BookingsResponseDto;
-import com.aja.Dto.StatesDeleteResponseDto;
 import com.aja.entity.Bookings;
-import com.aja.entity.States;
+import com.aja.exceptions.InvalidInputException;
+import com.aja.exceptions.NoDataFoundException;
+import com.aja.exceptions.ResourceNotFoundException;
 import com.aja.repository.BookingsRepo;
 import com.aja.service.BookingsService;
+
 @Service
 public class BookingsServiceImpl implements BookingsService {
-	@Autowired
-	private BookingsRepo bRepo;
-	
-	@Override
-	public BookingsResponseDto addBooking(BookingsRequestDto bres) {
-		// TODO Auto-generated method stub
-		Bookings b=new Bookings();
-		BeanUtils.copyProperties(bres, b);
-		Bookings savent=bRepo.save(b);
-		BookingsResponseDto bdto=new BookingsResponseDto(); 
-		BeanUtils.copyProperties(savent, bdto);
-		return bdto;
-	}
 
-	@Override
-	public List<BookingsResponseDto> viewBookings() {
-		// TODO Auto-generated method stub
-		List<Bookings> Booking=bRepo.findAll();
-		
-		List<BookingsResponseDto> responselist=new ArrayList<>();
-		
-		for(Bookings book:Booking)
-		{
-			BookingsResponseDto dto=new BookingsResponseDto();
-			BeanUtils.copyProperties(book, dto);
-			responselist.add(dto);
-		}
-		return responselist;
-	}
+    @Autowired
+    private BookingsRepo bRepo;
 
-	@Override
-	public BookingsResponseDto updateBooking(Long bookingId,BookingsRequestDto b) {
-		// TODO Auto-generated method stub
-		
-		Optional<Bookings> UpdateById = bRepo.findById(bookingId);
-		if (UpdateById.isEmpty()) {
-			return null;
-		}
- 
-		Bookings bookings = UpdateById.get();
- 
-		BeanUtils.copyProperties(b, bookings, "bookingId");
-		// update only required or id fields
-		Bookings updated = bRepo.save(bookings);
- 
-		BookingsResponseDto bres = new BookingsResponseDto();
- 
-		BeanUtils.copyProperties(updated, bres);
- 
-		return bres;
-	}
+    // ---------------- ADD ----------------
+    @Override
+    public BookingsResponseDto addBooking(BookingsRequestDto bres) {
 
-	@Override
-	public BookingsResponseDto viewById(Long bookingId) {
-		// TODO Auto-generated method stub
-		
-		Optional<Bookings> optionalBooking=bRepo.findById(bookingId);
-		if(optionalBooking.isEmpty()) {
-			return null;
-		}
-		 
-		Bookings book=optionalBooking.get();
-		BookingsResponseDto response=new BookingsResponseDto();
-		BeanUtils.copyProperties(book, response);
-		
-		return response;
-	}
+        if (bres == null) {
+            throw new InvalidInputException("Booking data cannot be null");
+        }
 
-	
+        Bookings booking = new Bookings();
+        BeanUtils.copyProperties(bres, booking);
 
-	@Override
+        Bookings saved = bRepo.save(booking);
 
-	public BookingDeleteResponseDto deleteBooking(Long bookingId) {
+        BookingsResponseDto response = new BookingsResponseDto();
+        BeanUtils.copyProperties(saved, response);
 
-		Optional<Bookings> byId = bRepo.findById(bookingId);
-		 
-		BookingDeleteResponseDto bdelRes = new BookingDeleteResponseDto();
- 
-		if (byId.isPresent()) {
-			Bookings b = byId.get();
-//			soft delete by flag
-			b.setFlag(false);
-			bRepo.save(b);
-			bdelRes.setDeleted(true);
-			bdelRes.setMessage("Place Deleted Successfully");
- 
-		}
-		else {
-			bdelRes.setDeleted(false);
-			bdelRes.setMessage("Place Not  Deleted Successfully");
-		}
-		return bdelRes;
-	}
+        return response;
+    }
 
+    // ---------------- VIEW ALL ----------------
+    @Override
+    public List<BookingsResponseDto> viewBookings() {
+
+        List<Bookings> list = bRepo.findAll();
+
+        if (list.isEmpty()) {
+            throw new NoDataFoundException("No bookings found");
+        }
+
+        List<BookingsResponseDto> responseList = new ArrayList<>();
+
+        for (Bookings booking : list) {
+            BookingsResponseDto dto = new BookingsResponseDto();
+            BeanUtils.copyProperties(booking, dto);
+            responseList.add(dto);
+        }
+
+        return responseList;
+    }
+
+    // ---------------- VIEW BY ID ----------------
+    @Override
+    public BookingsResponseDto viewById(Long bookingId) {
+
+        Bookings booking = bRepo.findById(bookingId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Booking not found with id: " + bookingId));
+
+        BookingsResponseDto response = new BookingsResponseDto();
+        BeanUtils.copyProperties(booking, response);
+
+        return response;
+    }
+
+    // ---------------- UPDATE ----------------
+    @Override
+    public BookingsResponseDto updateBooking(Long bookingId, BookingsRequestDto b) {
+
+        if (b == null) {
+            throw new InvalidInputException("Update booking data cannot be null");
+        }
+
+        Bookings booking = bRepo.findById(bookingId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Booking not found with id: " + bookingId));
+
+        BeanUtils.copyProperties(b, booking, "bookingId");
+
+        Bookings updated = bRepo.save(booking);
+
+        BookingsResponseDto response = new BookingsResponseDto();
+        BeanUtils.copyProperties(updated, response);
+
+        return response;
+    }
+
+    // ---------------- DELETE (SOFT DELETE) ----------------
+    @Override
+    public BookingDeleteResponseDto deleteBooking(Long bookingId) {
+
+        Bookings booking = bRepo.findById(bookingId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Booking not found with id: " + bookingId));
+
+        booking.setFlag(false); // soft delete
+        bRepo.save(booking);
+
+        BookingDeleteResponseDto response = new BookingDeleteResponseDto();
+        response.setDeleted(true);
+        response.setMessage("Booking deleted successfully");
+
+        return response;
+    }
 }
