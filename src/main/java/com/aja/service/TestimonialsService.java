@@ -5,7 +5,6 @@ import java.util.List;
 import com.aja.Dto.TestimonialsDeleteResponseDto;
 import com.aja.Dto.TestimonialsRequestDto;
 import com.aja.Dto.TestimonialsResponseDto;
-import com.aja.entity.Testimonials;
 
 public interface TestimonialsService {
 

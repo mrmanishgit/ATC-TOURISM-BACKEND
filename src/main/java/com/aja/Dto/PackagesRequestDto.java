@@ -1,23 +1,41 @@
 package com.aja.Dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class PackagesRequestDto {
-	private String packageName;
+	 @NotBlank(message = "Package name is mandatory")
+	    @Size(min = 3, max = 100)
+	    private String packageName;
 
-	private Integer durationDays;
+	    @NotNull(message = "Duration is required")
+	    @Min(value = 1, message = "Duration must be at least 1 day")
+	    private Integer durationDays;
 
-	private Double adultPrice;
+	    @NotNull
+	    @Positive(message = "Adult price must be positive")
+	    private Double adultPrice;
 
-	private Double childPrice;
+	    @PositiveOrZero
+	    private Double childPrice;
 
-	private Double foodPrice;
+	    @PositiveOrZero
+	    private Double foodPrice;
 
-	private Double pickupPrice;
+	    @PositiveOrZero
+	    private Double pickupPrice;
 
-	private Double gstPercentage;
+	    @Positive
+	    private Double gstPercentage;
 
+	    @NotNull(message = "State id is required")
+	    private Long stateId;
 }

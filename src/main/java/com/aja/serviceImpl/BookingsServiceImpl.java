@@ -11,9 +11,6 @@ import com.aja.Dto.BookingDeleteResponseDto;
 import com.aja.Dto.BookingsRequestDto;
 import com.aja.Dto.BookingsResponseDto;
 import com.aja.entity.Bookings;
-import com.aja.exceptions.InvalidInputException;
-import com.aja.exceptions.NoDataFoundException;
-import com.aja.exceptions.ResourceNotFoundException;
 import com.aja.repository.BookingsRepo;
 import com.aja.service.BookingsService;
 

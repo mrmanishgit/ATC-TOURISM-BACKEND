@@ -5,7 +5,6 @@ import java.util.List;
 import com.aja.Dto.BookingDeleteResponseDto;
 import com.aja.Dto.BookingsRequestDto;
 import com.aja.Dto.BookingsResponseDto;
-import com.aja.entity.Bookings;
 
 public interface BookingsService {
 	
