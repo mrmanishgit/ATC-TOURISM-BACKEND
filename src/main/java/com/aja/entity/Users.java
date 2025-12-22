@@ -34,13 +34,8 @@ public class Users {
 
 	private String photoUrl;
 
-	private String fullName;
-	private String password;
-	
-	private String confirmPassword;
 
-	private String profileImage;
-
+	private boolean isFlag=true;
 
 	private LocalDate dateOfBirth;
 
@@ -66,6 +61,5 @@ public class Users {
 	private List<Payments> payment = new ArrayList<>();
 
 }
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Payments> payment = new ArrayList<>();
-}
+	
+
