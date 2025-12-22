@@ -1,6 +1,6 @@
 package com.aja.Dto;
 
-import com.aja.entity.Meals;
+import com.aja.constant.Meals;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -19,7 +19,7 @@ public class Testimonials {
 
 	private String name;
 	private Integer rating;
-
+	private String packageName;
 	private String review;
 	private String image;
 	private boolean isFlag=true;

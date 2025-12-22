@@ -1,4 +1,4 @@
-package com.aja.entity;
+package com.aja.constant;
 
 public enum IdentityProofType {
 	AADHAR, PASSPORT
