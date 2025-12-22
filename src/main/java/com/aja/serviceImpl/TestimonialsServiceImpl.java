@@ -2,7 +2,6 @@ package com.aja.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,111 +11,109 @@ import com.aja.Dto.TestimonialsDeleteResponseDto;
 import com.aja.Dto.TestimonialsRequestDto;
 import com.aja.Dto.TestimonialsResponseDto;
 import com.aja.entity.Testimonials;
+import com.aja.exceptions.InvalidInputException;
+import com.aja.exceptions.NoDataFoundException;
+import com.aja.exceptions.ResourceNotFoundException;
 import com.aja.repository.TestimonialsRepo;
 import com.aja.service.TestimonialsService;
 
 @Service
 public class TestimonialsServiceImpl implements TestimonialsService {
 
-	@Autowired
-	private TestimonialsRepo tRepo;
+    @Autowired
+    private TestimonialsRepo tRepo;
 
-	@Override
+    // ---------------- ADD ----------------
+    @Override
+    public TestimonialsResponseDto addTestmonial(TestimonialsRequestDto tm) {
 
-	public TestimonialsResponseDto addTestmonial(TestimonialsRequestDto  tm) {
-		// TODO Auto-generated method stub
-		Testimonials t=new Testimonials();
-		BeanUtils.copyProperties(tm, t);
-		
-		Testimonials saveEnt=tRepo.save(t);
-		TestimonialsResponseDto tdto =new TestimonialsResponseDto();
+        if (tm == null) {
+            throw new InvalidInputException("Testimonial data cannot be null");
+        }
 
-		
-		BeanUtils.copyProperties(saveEnt,tdto);
-		return tdto;
-	}
+        Testimonials t = new Testimonials();
+        BeanUtils.copyProperties(tm, t);
 
-	@Override
-	public List<TestimonialsResponseDto> viewAll() {
-		// TODO Auto-generated method stub
-		List<Testimonials>  test=tRepo.findAll();
-		
-		List<TestimonialsResponseDto> response=new ArrayList<>();
-		
-		for(Testimonials t: test)
-		{
-			TestimonialsResponseDto dto=new TestimonialsResponseDto();
-			BeanUtils.copyProperties(t,dto);
-			response.add(dto);
-		}
-		return response;
-	}
+        Testimonials saved = tRepo.save(t);
 
-	@Override
-	public TestimonialsResponseDto updateTestimonial(Long id, TestimonialsRequestDto t) {
-		Optional<Testimonials> UpdateById = tRepo.findById(id);
-		if (UpdateById.isEmpty()) {
-			return null;
-		}
- 
-		Testimonials testmonials = UpdateById.get();
- 
-		BeanUtils.copyProperties(t, testmonials, "testmonialId");
-		// update only required or id fields
-		Testimonials updated = tRepo.save(testmonials);
- 
-		TestimonialsResponseDto tres = new TestimonialsResponseDto();
- 
-		BeanUtils.copyProperties(updated, tres);
- 
-		return tres;
-		}
+        TestimonialsResponseDto response = new TestimonialsResponseDto();
+        BeanUtils.copyProperties(saved, response);
 
-	@Override
-	public TestimonialsDeleteResponseDto deleteTestnomial(Long id) {
-		// TODO Auto-generated method stub
-		
-		Optional<Testimonials> byId = tRepo.findById(id);
-		 
-		TestimonialsDeleteResponseDto tdelRes = new TestimonialsDeleteResponseDto();
- 
-		if (byId.isPresent()) {
-			Testimonials t = byId.get();
-//			soft delete by flag
-			t.setFlag(false);
-			tRepo.save(t);
-			tdelRes.setDeleted(true);
-			tdelRes.setMessage("Place Deleted Successfully");
- 
-		}
-		else {
-			tdelRes.setDeleted(false);
-			tdelRes.setMessage("Place Not  Deleted Successfully");
-		}
-		return tdelRes;
-	}
-	
+        return response;
+    }
 
-	@Override
-	public TestimonialsResponseDto viewById(Long id) {
-		// TODO Auto-generated method stub
-		
-			    Optional<Testimonials> optionalTest = tRepo.findById(id);
-			 
-			    if (optionalTest.isEmpty())
-			    {
-			        return null;   
-			    }
-			 
-			    Testimonials test = optionalTest.get();
-			 
-			    TestimonialsResponseDto response = new TestimonialsResponseDto();
-			    BeanUtils.copyProperties(test, response);
-	
-			    return response;
-			
-		
-	}
-	
-	
-	}
+    // ---------------- VIEW ALL ----------------
+    @Override
+    public List<TestimonialsResponseDto> viewAll() {
+
+        List<Testimonials> list = tRepo.findAll();
+
+        if (list.isEmpty()) {
+            throw new NoDataFoundException("No testimonials found");
+        }
+
+        List<TestimonialsResponseDto> responseList = new ArrayList<>();
+
+        for (Testimonials t : list) {
+            TestimonialsResponseDto dto = new TestimonialsResponseDto();
+            BeanUtils.copyProperties(t, dto);
+            responseList.add(dto);
+        }
+
+        return responseList;
+    }
+
+    // ---------------- VIEW BY ID ----------------
+    @Override
+    public TestimonialsResponseDto viewById(Long id) {
+
+        Testimonials testimonial = tRepo.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Testimonial not found with id: " + id));
+
+        TestimonialsResponseDto response = new TestimonialsResponseDto();
+        BeanUtils.copyProperties(testimonial, response);
+
+        return response;
+    }
+
+    // ---------------- UPDATE ----------------
+    @Override
+    public TestimonialsResponseDto updateTestimonial(Long id, TestimonialsRequestDto t) {
+
+        if (t == null) {
+            throw new InvalidInputException("Update data cannot be null");
+        }
+
+        Testimonials testimonial = tRepo.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Testimonial not found with id: " + id));
+
+        BeanUtils.copyProperties(t, testimonial, "testmonialId");
+
+        Testimonials updated = tRepo.save(testimonial);
+
+        TestimonialsResponseDto response = new TestimonialsResponseDto();
+        BeanUtils.copyProperties(updated, response);
+
+        return response;
+    }
+
+    // ---------------- DELETE (SOFT DELETE) ----------------
+    @Override
+    public TestimonialsDeleteResponseDto deleteTestnomial(Long id) {
+
+        Testimonials testimonial = tRepo.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Testimonial not found with id: " + id));
+
+        testimonial.setFlag(false); // soft delete
+        tRepo.save(testimonial);
+
+        TestimonialsDeleteResponseDto response = new TestimonialsDeleteResponseDto();
+        response.setDeleted(true);
+        response.setMessage("Testimonial deleted successfully");
+
+        return response;
+    }
+}
