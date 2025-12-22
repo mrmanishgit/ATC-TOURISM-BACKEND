@@ -18,6 +18,8 @@ import com.aja.Dto.PackagesRequestDto;
 import com.aja.Dto.PackagesResponseDto;
 import com.aja.service.PackageService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/package")
 public class PackagesController {
@@ -26,7 +28,7 @@ public class PackagesController {
 	private PackageService packageService;
 
 	@PostMapping
-	public ResponseEntity<PackagesResponseDto> createPackage(@RequestBody PackagesRequestDto p) {
+	public ResponseEntity<PackagesResponseDto> createPackage(@Valid @RequestBody PackagesRequestDto p) {
 
 		PackagesResponseDto pack = packageService.addPackage(p);
 		return ResponseEntity.ok(pack);

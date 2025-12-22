@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import com.aja.Dto.BookingDeleteResponseDto;
 import com.aja.Dto.BookingsRequestDto;
 import com.aja.Dto.BookingsResponseDto;
-import com.aja.Dto.StatesDeleteResponseDto;
 import com.aja.entity.Bookings;
-import com.aja.entity.States;
 import com.aja.repository.BookingsRepo;
 import com.aja.service.BookingsService;
 @Service

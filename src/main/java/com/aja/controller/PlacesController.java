@@ -18,6 +18,8 @@ import com.aja.Dto.PlacesRequestDto;
 import com.aja.Dto.PlacesResponseDto;
 import com.aja.serviceImpl.PlacesServiceImpl;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/place")
 public class PlacesController {
@@ -25,7 +27,7 @@ public class PlacesController {
 	private PlacesServiceImpl placeImpl;
 
 	@PostMapping
-	public ResponseEntity<PlacesResponseDto> place(@RequestBody PlacesRequestDto p) {
+	public ResponseEntity<PlacesResponseDto> place(@Valid @RequestBody PlacesRequestDto p) {
 
 		PlacesResponseDto place = placeImpl.addPlace(p);
 		return ResponseEntity.ok(place);

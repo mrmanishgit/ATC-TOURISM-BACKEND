@@ -8,14 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aja.Dto.BookingDeleteResponseDto;
-import com.aja.Dto.BookingsResponseDto;
-import com.aja.Dto.StatesResponseDto;
 import com.aja.Dto.TestimonialsDeleteResponseDto;
 import com.aja.Dto.TestimonialsRequestDto;
 import com.aja.Dto.TestimonialsResponseDto;
-import com.aja.entity.Bookings;
-import com.aja.entity.States;
 import com.aja.entity.Testimonials;
 import com.aja.repository.TestimonialsRepo;
 import com.aja.service.TestimonialsService;

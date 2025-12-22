@@ -2,7 +2,6 @@ package com.aja.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,116 +11,126 @@ import com.aja.Dto.PackageDeleteResponseDto;
 import com.aja.Dto.PackagesRequestDto;
 import com.aja.Dto.PackagesResponseDto;
 import com.aja.entity.Packages;
+import com.aja.entity.States;
+import com.aja.exceptions.InvalidPackageDataException;
+import com.aja.exceptions.PackageAlreadyExistsException;
+import com.aja.exceptions.PackageNotFoundException;
 import com.aja.repository.PackagesRepo;
+import com.aja.repository.StatesRepo;
 import com.aja.service.PackageService;
 
 @Service
 public class PackageServiceImpl implements PackageService {
 
-	@Autowired
-	private PackagesRepo pRepo;
+    @Autowired
+    private PackagesRepo packagesRepo;
 
-	@Override
-	public PackagesResponseDto addPackage(PackagesRequestDto p) {
+    @Autowired
+    private StatesRepo statesRepo;
 
-		Packages pack = new Packages();
+    // ADD PACKAGE
+    @Override
+    public PackagesResponseDto addPackage(PackagesRequestDto dto) {
 
-		BeanUtils.copyProperties(p, pack);
+        if (packagesRepo.existsByPackageNameIgnoreCase(dto.getPackageName())) {
+            throw new PackageAlreadyExistsException(
+                    "Package already exists with name: " + dto.getPackageName());
+        }
 
-		Packages entity = pRepo.save(pack);
+        States state = statesRepo.findById(dto.getStateId())
+                .orElseThrow(() ->
+                        new InvalidPackageDataException("Invalid state id"));
 
-		PackagesResponseDto pRes = new PackagesResponseDto();
+        Packages pack = new Packages();
+        pack.setPackageName(dto.getPackageName());
+        pack.setDurationDays(dto.getDurationDays());
+        pack.setAdultPrice(dto.getAdultPrice());
+        pack.setChildPrice(dto.getChildPrice());
+        pack.setFoodPrice(dto.getFoodPrice());
+        pack.setPickupPrice(dto.getPickupPrice());
+        pack.setGstPercentage(dto.getGstPercentage());
+        pack.setState(state);
 
-		BeanUtils.copyProperties(entity, pRes);
+        Packages saved = packagesRepo.save(pack);
 
-		return pRes;
-	}
+        PackagesResponseDto res = new PackagesResponseDto();
+        BeanUtils.copyProperties(saved, res);
 
-	@Override
-	public List<PackagesResponseDto> viewPackages() {
+        return res;
+    }
 
-		List<Packages> viewAllPackages = pRepo.findAll();
+    // VIEW ALL PACKAGES (ONLY ACTIVE)
+    @Override
+    public List<PackagesResponseDto> viewPackages() {
 
-		List<PackagesResponseDto> resList = new ArrayList<>();
+        List<Packages> packagesList = packagesRepo.findByIsFlagTrue();
+        List<PackagesResponseDto> responseList = new ArrayList<>();
 
-		for (Packages pack : viewAllPackages) {
+        for (Packages pack : packagesList) {
+            PackagesResponseDto dto = new PackagesResponseDto();
+            BeanUtils.copyProperties(pack, dto);
+            responseList.add(dto);
+        }
 
-			PackagesResponseDto dtoRes = new PackagesResponseDto();
+        return responseList;
+    }
 
-			BeanUtils.copyProperties(pack, dtoRes);
+    // GET PACKAGE BY ID
+    @Override
+    public PackagesResponseDto getPackage(Long packageId) {
 
-			resList.add(dtoRes);
-		}
+        Packages pack = packagesRepo.findById(packageId)
+                .orElseThrow(() ->
+                        new PackageNotFoundException(
+                                "Package not found with id: " + packageId));
 
-		return resList;
-	}
+        PackagesResponseDto dto = new PackagesResponseDto();
+        BeanUtils.copyProperties(pack, dto);
 
-	@Override
-	public PackagesResponseDto updatePackage(Long packageId, PackagesRequestDto p) {
+        return dto;
+    }
 
-		Optional<Packages> updateById = pRepo.findById(packageId);
+    // UPDATE PACKAGE
+    @Override
+    public PackagesResponseDto updatePackage(Long packageId, PackagesRequestDto dto) {
 
-		if (updateById.isEmpty()) {
-			return null;
-		}
+        Packages pack = packagesRepo.findById(packageId)
+                .orElseThrow(() ->
+                        new PackageNotFoundException(
+                                "Cannot update. Package not found"));
 
-		Packages pack = updateById.get();
+        pack.setPackageName(dto.getPackageName());
+        pack.setDurationDays(dto.getDurationDays());
+        pack.setAdultPrice(dto.getAdultPrice());
+        pack.setChildPrice(dto.getChildPrice());
+        pack.setFoodPrice(dto.getFoodPrice());
+        pack.setPickupPrice(dto.getPickupPrice());
+        pack.setGstPercentage(dto.getGstPercentage());
 
-		BeanUtils.copyProperties(p, pack, "packageId");
-		// update only required or id--ignore fields
+        Packages updated = packagesRepo.save(pack);
 
-		Packages updated = pRepo.save(pack);
+        PackagesResponseDto res = new PackagesResponseDto();
+        BeanUtils.copyProperties(updated, res);
 
-		PackagesResponseDto pres = new PackagesResponseDto();
+        return res;
+    }
 
-		BeanUtils.copyProperties(updated, pres);
+    // SOFT DELETE PACKAGE
+    @Override
+    public PackageDeleteResponseDto deletePackage(Long id) {
 
-		return pres;
-	}
+        Packages pack = packagesRepo.findById(id)
+                .orElseThrow(() ->
+                        new PackageNotFoundException(
+                                "Cannot delete. Package not found"));
 
-	@Override
-	public PackagesResponseDto getPackage(Long packageId) {
+        pack.setFlag(false);
+        packagesRepo.save(pack);
 
-		Optional<Packages> viewById = pRepo.findById(packageId);
+        PackageDeleteResponseDto res = new PackageDeleteResponseDto();
+        res.setDeleted(true);
+        res.setMessage("Package deleted successfully");
 
-		Packages pack = null;
-
-		if (viewById.isEmpty()) {
-			return null;
-		}
-
-		pack = viewById.get();
-
-		PackagesResponseDto pres = new PackagesResponseDto();
-
-		BeanUtils.copyProperties(pack, pres);
-
-		return pres;
-	}
-
-	@Override
-	public PackageDeleteResponseDto deletePackage(Long id) {
-
-		Optional<Packages> byId = pRepo.findById(id);
-
-		PackageDeleteResponseDto pdelRes = new PackageDeleteResponseDto();
-
-		if (byId.isPresent()) {
-
-			Packages p = byId.get();
-			// soft delete by flag
-			p.setFlag(false);
-			pRepo.save(p);
-
-			pdelRes.setDeleted(true);
-			pdelRes.setMessage("Package Deleted Successfully");
-
-		} else {
-			pdelRes.setDeleted(false);
-			pdelRes.setMessage("Package Not Deleted Successfully");
-		}
-
-		return pdelRes;
-	}
-
+        return res;
+    }
 }

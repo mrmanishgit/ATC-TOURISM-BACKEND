@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aja.Dto.StatesDeleteResponseDto;
 import com.aja.Dto.StatesRequestDto;
 import com.aja.Dto.StatesResponseDto;
-import com.aja.entity.States;
 import com.aja.serviceImpl.StatesServiceImpl;
 
 @RestController
