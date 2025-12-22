@@ -60,8 +60,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 	@Override
 	public List<PaymentsResponseDto> getByTransactionId(String transactionId) {
 
-		List<Payments> payments =
-				paymentsRepo.findByTransactionId(transactionId);
+		List<Payments> payments =paymentsRepo.findByTransactionId(transactionId);
 
 		List<PaymentsResponseDto> resList = new ArrayList<>();
 
