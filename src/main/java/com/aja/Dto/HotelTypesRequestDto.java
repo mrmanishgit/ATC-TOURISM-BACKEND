@@ -8,6 +8,6 @@ import lombok.Setter;
 public class HotelTypesRequestDto {
 
 	private String htypeName;
-
+	private String meals;
 	private Double pricePerday;
 }

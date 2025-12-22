@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 
 import jakarta.persistence.GenerationType;
@@ -34,7 +35,9 @@ public class HotelTypes {
 
 	private String htypeName;
 
-	private Double pricePerday;
+//	private Double pricePerday;
+	@Enumerated(EnumType.STRING)
+	private String meals;
 
 	@OneToMany(mappedBy = "hoteltype")
 
