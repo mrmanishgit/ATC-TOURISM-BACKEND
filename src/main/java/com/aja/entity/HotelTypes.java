@@ -34,7 +34,7 @@ public class HotelTypes {
 	private String htypeName;
 	
 	@Enumerated(EnumType.STRING)
-	private String meals;
+	private Meals meals;
 
 	@OneToMany(mappedBy = "hoteltype")
 

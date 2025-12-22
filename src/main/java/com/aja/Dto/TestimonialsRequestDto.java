@@ -11,7 +11,7 @@ public class TestimonialsRequestDto {
 	
 
 	private String name;
-	private String rating;
+	private Integer rating;
 	private String review;
 	private String image;
 }
