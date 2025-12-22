@@ -20,9 +20,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-
 @Getter
-
 @Setter
 
 public class HotelTypes {
@@ -34,8 +32,7 @@ public class HotelTypes {
 	private Long hotelTypeId;
 
 	private String htypeName;
-
-//	private Double pricePerday;
+	
 	@Enumerated(EnumType.STRING)
 	private String meals;
 
