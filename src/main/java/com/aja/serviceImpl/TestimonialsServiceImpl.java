@@ -24,6 +24,7 @@ public class TestimonialsServiceImpl implements TestimonialsService {
     private TestimonialsRepo tRepo;
 
     // ---------------- ADD ----------------
+
     @Override
     public TestimonialsResponseDto addTestmonial(TestimonialsRequestDto tm) {
 
@@ -46,7 +47,7 @@ public class TestimonialsServiceImpl implements TestimonialsService {
     @Override
     public List<TestimonialsResponseDto> viewAll() {
 
-        List<Testimonials> list = tRepo.findAll();
+        List<Testimonials> list = tRepo.findByIsFlagTrue();
 
         if (list.isEmpty()) {
             throw new NoDataFoundException("No testimonials found");

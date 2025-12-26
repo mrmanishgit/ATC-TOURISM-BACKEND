@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PackagesResponseDto {
+	
+	private Long packageId;
 
 	private String packageName;
 
@@ -20,5 +22,7 @@ public class PackagesResponseDto {
 	private Double pickupPrice;
 
 	private Double gstPercentage;
+	
+	private String imageUrl;
 
 }

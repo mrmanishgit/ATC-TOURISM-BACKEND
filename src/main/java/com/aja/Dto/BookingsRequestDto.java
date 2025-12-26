@@ -9,7 +9,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BookingsRequestDto {
-
+	
+	
+	private Long userId;
+	
+	private Long packageId;
+	
 	private LocalDate travelDate;
 
 	private Integer noOfAdults;

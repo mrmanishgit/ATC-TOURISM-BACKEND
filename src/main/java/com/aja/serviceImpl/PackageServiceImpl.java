@@ -40,7 +40,7 @@ public class PackageServiceImpl implements PackageService {
 	@Override
 	public List<PackagesResponseDto> viewPackages() {
 
-		List<Packages> viewAllPackages = pRepo.findAll();
+		List<Packages> viewAllPackages = pRepo.findByIsFlagTrue();
 
 		List<PackagesResponseDto> resList = new ArrayList<>();
 

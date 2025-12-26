@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,21 +20,23 @@ import com.aja.Dto.PackagesResponseDto;
 import com.aja.service.PackageService;
 
 @RestController
-@RequestMapping("/api/package")
+@RequestMapping("/api/packages")
+@CrossOrigin("*")
 public class PackagesController {
 
 	@Autowired
 	private PackageService packageService;
 
-	@PostMapping
+	@PostMapping("/create")
 	public ResponseEntity<PackagesResponseDto> createPackage(@RequestBody PackagesRequestDto p) {
 
 		PackagesResponseDto pack = packageService.addPackage(p);
 		return ResponseEntity.ok(pack);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<PackagesResponseDto>> fetchAll() {
+	@GetMapping("/all")
+	public ResponseEntity<List<PackagesResponseDto>> fetchAll()
+	{
 
 		List<PackagesResponseDto> packages = packageService.viewPackages();
 		return ResponseEntity.ok(packages);
