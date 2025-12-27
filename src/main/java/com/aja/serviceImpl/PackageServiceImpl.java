@@ -12,7 +12,9 @@ import com.aja.Dto.PackageDeleteResponseDto;
 import com.aja.Dto.PackagesRequestDto;
 import com.aja.Dto.PackagesResponseDto;
 import com.aja.entity.Packages;
+import com.aja.entity.States;
 import com.aja.repository.PackagesRepo;
+import com.aja.repository.StatesRepo;
 import com.aja.service.PackageService;
 
 @Service
@@ -20,21 +22,31 @@ public class PackageServiceImpl implements PackageService {
 
 	@Autowired
 	private PackagesRepo pRepo;
+	
+	@Autowired
+	private StatesRepo sRepo;
 
 	@Override
 	public PackagesResponseDto addPackage(PackagesRequestDto p) {
 
-		Packages pack = new Packages();
+	    Packages pack = new Packages();
 
-		BeanUtils.copyProperties(p, pack);
+	    // ✅ Copies simple fields INCLUDING imageUrl
+	    BeanUtils.copyProperties(p, pack);
 
-		Packages entity = pRepo.save(pack);
+	    // ✅ Manually map stateId → State entity
+	    if (p.getStateId() != null) {
+	        States state = sRepo.findById(p.getStateId())
+	            .orElseThrow(() -> new RuntimeException("State not found"));
+	        pack.setState(state);
+	    }
 
-		PackagesResponseDto pRes = new PackagesResponseDto();
+	    Packages entity = pRepo.save(pack);
 
-		BeanUtils.copyProperties(entity, pRes);
+	    PackagesResponseDto pRes = new PackagesResponseDto();
+	    BeanUtils.copyProperties(entity, pRes);
 
-		return pRes;
+	    return pRes;
 	}
 
 	@Override
