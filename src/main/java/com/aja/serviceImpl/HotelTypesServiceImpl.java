@@ -49,6 +49,8 @@ public class HotelTypesServiceImpl implements HotelTypesService {
 
 		hotelTypes2.setMeals(hotelTypes.getMeals());
 
+		
+
 		return hotelTypesRepo.save(hotelTypes2);
 	}
 

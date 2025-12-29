@@ -8,13 +8,15 @@ import com.aja.Dto.PackagesResponseDto;
 
 public interface PackageService {
 
-    public PackagesResponseDto addPackage(PackagesRequestDto dto);
+	public PackagesResponseDto addPackage(PackagesRequestDto dto);
 
-    public List<PackagesResponseDto> viewPackages();
+	public List<PackagesResponseDto> viewPackages();
 
-    public PackagesResponseDto getPackage(Long packageId);
+	public PackagesResponseDto getPackage(Long packageId);
 
-    public PackagesResponseDto updatePackage(Long packageId, PackagesRequestDto dto);
+	public PackagesResponseDto updatePackage(Long packageId, PackagesRequestDto dto);
 
-    public PackageDeleteResponseDto deletePackage(Long id);
+	public PackageDeleteResponseDto deletePackage(Long id);
+
+
 }

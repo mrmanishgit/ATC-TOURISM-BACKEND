@@ -1,7 +1,7 @@
 package com.aja.controller;
  
 import java.util.List;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
- 
+
 import com.aja.Dto.PaymentDeleteResponseDto;
 import com.aja.Dto.PaymentsRequestDto;
 import com.aja.Dto.PaymentsResponseDto;
 import com.aja.service.PaymentsService;
+
+import jakarta.validation.Valid;
  
 @RestController
  
@@ -28,7 +30,7 @@ public class PaymentsController {
 	private PaymentsService paymentsService;
  
 	@PostMapping("/add")
-	public ResponseEntity<PaymentsResponseDto> createPayment(@RequestBody PaymentsRequestDto dto) {
+	public ResponseEntity<PaymentsResponseDto> createPayment(@Valid @RequestBody PaymentsRequestDto dto) {
 		return ResponseEntity.ok(paymentsService.createPayment(dto));
  
 	}

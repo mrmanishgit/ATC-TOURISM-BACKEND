@@ -18,6 +18,8 @@ import com.aja.Dto.PlacesRequestDto;
 import com.aja.Dto.PlacesResponseDto;
 import com.aja.serviceImpl.PlacesServiceImpl;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/place")
 public class PlacesController {

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aja.Dto.BookingDeleteResponseDto;
 import com.aja.Dto.BookingsRequestDto;
 import com.aja.Dto.BookingsResponseDto;
-import com.aja.entity.Bookings;
 import com.aja.serviceImpl.BookingsServiceImpl;
 
 @RestController
