@@ -36,5 +36,9 @@ public class Places {
 
 	@OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
 	private List<PackageLocations> packageLocations = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+	private List<Destinations> destinations = new ArrayList<>();
+
 
 }

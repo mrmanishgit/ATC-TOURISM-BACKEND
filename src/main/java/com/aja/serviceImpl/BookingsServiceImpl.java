@@ -11,7 +11,14 @@ import com.aja.Dto.BookingDeleteResponseDto;
 import com.aja.Dto.BookingsRequestDto;
 import com.aja.Dto.BookingsResponseDto;
 import com.aja.entity.Bookings;
+import com.aja.entity.Packages;
+import com.aja.entity.Users;
+import com.aja.exceptions.InvalidInputException;
+import com.aja.exceptions.NoDataFoundException;
+import com.aja.exceptions.ResourceNotFoundException;
 import com.aja.repository.BookingsRepo;
+import com.aja.repository.PackagesRepo;
+import com.aja.repository.UsersRepo;
 import com.aja.service.BookingsService;
 
 @Service
@@ -19,6 +26,12 @@ public class BookingsServiceImpl implements BookingsService {
 
     @Autowired
     private BookingsRepo bRepo;
+    
+    @Autowired
+    private PackagesRepo pRepo;
+    
+    @Autowired
+    private UsersRepo uRepo;
 
     // ---------------- ADD ----------------
     @Override
@@ -30,12 +43,24 @@ public class BookingsServiceImpl implements BookingsService {
 
         Bookings booking = new Bookings();
         BeanUtils.copyProperties(bres, booking);
+        
+        Users user = uRepo.findById(bres.getUserId())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found with id: " + bres.getUserId()));
+        booking.setUser(user);
+ 
+		Packages packages = pRepo.findById(bres.getPackageId())
+	            .orElseThrow(() ->
+	                    new ResourceNotFoundException("Package not found with id: " + bres.getPackageId()));
+	    booking.setPackages(packages);
 
-        Bookings saved = bRepo.save(booking);
+	    Bookings saved = bRepo.save(booking);
+        
 
         BookingsResponseDto response = new BookingsResponseDto();
         BeanUtils.copyProperties(saved, response);
-
+        response.setUserId(saved.getUser().getUserId());
+        response.setPackageId(saved.getPackages().getPackageId());
         return response;
     }
 
@@ -70,6 +95,8 @@ public class BookingsServiceImpl implements BookingsService {
 
         BookingsResponseDto response = new BookingsResponseDto();
         BeanUtils.copyProperties(booking, response);
+        
+        
 
         return response;
     }
@@ -92,7 +119,8 @@ public class BookingsServiceImpl implements BookingsService {
 
         BookingsResponseDto response = new BookingsResponseDto();
         BeanUtils.copyProperties(updated, response);
-
+        response.setUserId(booking.getUser().getUserId());
+        response.setPackageId(booking.getPackages().getPackageId());
         return response;
     }
 

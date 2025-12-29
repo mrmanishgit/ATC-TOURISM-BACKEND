@@ -36,6 +36,8 @@ public class Packages {
 	private Double pickupPrice;
 
 	private Double gstPercentage;
+	
+	private String imageUrl;
 
 //	Relationships
 
@@ -46,8 +48,8 @@ public class Packages {
 	@OneToMany(mappedBy = "packages")
 	private List<Bookings> booking = new ArrayList<>();
 
-	@OneToMany(mappedBy = "packages")
-	private List<Testimonials> testimonial = new ArrayList<>();
+//	@OneToMany(mappedBy = "packages")
+//	private List<Testimonials> testimonial = new ArrayList<>();
 
 	@OneToMany(mappedBy = "packages")
 	private List<PackageLocations> packagelocations = new ArrayList<>();

@@ -52,8 +52,8 @@ public class Bookings {
 
 	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
 	private BookingPricing bookingpricing;
-
-   
+	
+    
     private boolean isFlag=true;
    
  

@@ -12,30 +12,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PackagesRequestDto {
-	 @NotBlank(message = "Package name is mandatory")
-	    @Size(min = 3, max = 100)
-	    private String packageName;
 
-	    @NotNull(message = "Duration is required")
-	    @Min(value = 1, message = "Duration must be at least 1 day")
-	    private Integer durationDays;
+    private String packageName;
+    private Integer durationDays;
+    private Double adultPrice;
+    private Double childPrice;
+    private Double foodPrice;
+    private Double pickupPrice;
+    private Double gstPercentage;
 
-	    @NotNull
-	    @Positive(message = "Adult price must be positive")
-	    private Double adultPrice;
+    
+    private String imageUrl;
 
-	    @PositiveOrZero
-	    private Double childPrice;
-
-	    @PositiveOrZero
-	    private Double foodPrice;
-
-	    @PositiveOrZero
-	    private Double pickupPrice;
-
-	    @Positive
-	    private Double gstPercentage;
-
-	    @NotNull(message = "State id is required")
-	    private Long stateId;
+   
+    private Long stateId;
 }
