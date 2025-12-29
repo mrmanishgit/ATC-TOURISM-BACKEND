@@ -19,8 +19,6 @@ import com.aja.Dto.PackagesRequestDto;
 import com.aja.Dto.PackagesResponseDto;
 import com.aja.service.PackageService;
 
-import jakarta.validation.Valid;
-
 @RestController
 @RequestMapping("/api/packages")
 @CrossOrigin("*")
@@ -37,8 +35,7 @@ public class PackagesController {
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<List<PackagesResponseDto>> fetchAll()
-	{
+	public ResponseEntity<List<PackagesResponseDto>> fetchAll() {
 
 		List<PackagesResponseDto> packages = packageService.viewPackages();
 		return ResponseEntity.ok(packages);

@@ -18,5 +18,4 @@ public interface PackageService {
 
 	public PackageDeleteResponseDto deletePackage(Long id);
 
-
 }
