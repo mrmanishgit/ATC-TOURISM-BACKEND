@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.aja.Dto.TestimonialsRequestDto;
 import com.aja.Dto.TestimonialsResponseDto;
@@ -27,14 +29,18 @@ public class TestimonialsController {
 	@Autowired
 	private TestimonialsServiceImpl tServiceImpl;
 
-	@PostMapping("/create")
-	public ResponseEntity<TestimonialsResponseDto> getTestimonials(@RequestBody TestimonialsRequestDto t)
-
-	{
-		TestimonialsResponseDto tdto=tServiceImpl.addTestmonial(t);
-		return ResponseEntity.ok(tdto);
-	}
 	
+	@PostMapping(value = "/create", consumes = "multipart/form-data")
+	public ResponseEntity<TestimonialsResponseDto> getTestimonials(
+	        @RequestParam("name") String name,
+	        @RequestParam("rating") String rating,
+	        @RequestParam("review") String review,
+	        @RequestParam(value = "image", required = false) MultipartFile image
+	) {
+	    TestimonialsResponseDto tdto = tServiceImpl.addTestmonial(image, name, rating, review);
+	    return ResponseEntity.ok(tdto);
+	}
+
 	
 	
 	@GetMapping("/all")

@@ -2,8 +2,10 @@ package com.aja.Dto;
  
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import com.aja.constant.IdentityProofType;
-import com.aja.constant.Nationality; 
+import com.aja.entity.Nationality;
+
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

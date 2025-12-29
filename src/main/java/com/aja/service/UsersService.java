@@ -10,7 +10,6 @@ public interface UsersService {
 
 	public UsersResponseDto registerUsers(UsersRequestDto user);
 
-
 	public List<UsersResponseDto> getAllUsers();
 
 	public UsersResponseDto login(String email, String password);

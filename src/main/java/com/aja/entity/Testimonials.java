@@ -1,32 +1,37 @@
 package com.aja.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
+@Getter
 public class Testimonials {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	private String name;
+	private String rating;
 
-    private String name;
+	private String review;
+	private String image;
+	private boolean isFlag=true;
+	
+//	Relationships
 
-    private Integer rating;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private Users user;
 
-    private String review;
+	@ManyToOne
+	@JoinColumn(name = "package_id")
+	private Packages packages;
 
-    private String packageName;   // ✅ ONLY THIS
-
-    private String image;
-
-    private boolean isFlag = true;
-
-    // -------- Relationships --------
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
 }

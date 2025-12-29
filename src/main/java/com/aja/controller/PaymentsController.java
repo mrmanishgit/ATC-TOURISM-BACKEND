@@ -1,5 +1,5 @@
 package com.aja.controller;
- 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,47 +19,46 @@ import com.aja.Dto.PaymentsRequestDto;
 import com.aja.Dto.PaymentsResponseDto;
 import com.aja.service.PaymentsService;
 
-import jakarta.validation.Valid;
- 
 @RestController
- 
+
 @RequestMapping("/api/payment")
 @CrossOrigin("*")
 public class PaymentsController {
 	@Autowired
 	private PaymentsService paymentsService;
- 
+
 	@PostMapping("/add")
-	public ResponseEntity<PaymentsResponseDto> createPayment(@Valid @RequestBody PaymentsRequestDto dto) {
+	public ResponseEntity<PaymentsResponseDto> createPayment(@RequestBody PaymentsRequestDto dto) {
 		return ResponseEntity.ok(paymentsService.createPayment(dto));
- 
+
 	}
- 
+
 	@GetMapping("/{id}")
 	public ResponseEntity<PaymentsResponseDto> getPaymentById(@PathVariable("id") Long id) {
 		PaymentsResponseDto payment = paymentsService.getPaymentById(id);
 		return ResponseEntity.ok(payment);
 	}
- 
+
 	@GetMapping("/all")
 	public ResponseEntity<List<PaymentsResponseDto>> getAllPayments() {
 		List<PaymentsResponseDto> pay = paymentsService.getAllPayments();
 		return ResponseEntity.ok(pay);
 	}
- 
+
 	@PutMapping("/{id}")
 	public ResponseEntity<PaymentsResponseDto> updatePayment(@PathVariable Long id,
 			@RequestBody PaymentsResponseDto paymentDto) {
- 
+
 		PaymentsResponseDto updated = paymentsService.updatePayment(id, paymentDto);
- 
+
 		return ResponseEntity.ok(updated);
 	}
- 
+
 	@DeleteMapping("/remove/{id}")
-	public ResponseEntity<PaymentDeleteResponseDto>  softDelete(@PathVariable Long id) {
-		PaymentDeleteResponseDto deletepayment= paymentsService.deletePayment(id);
+	public ResponseEntity<PaymentDeleteResponseDto> softDelete(@PathVariable Long id) {
+
+		PaymentDeleteResponseDto deletepayment = paymentsService.deletePayment(id);
 		return ResponseEntity.ok(deletepayment);
 	}
- 
+
 }

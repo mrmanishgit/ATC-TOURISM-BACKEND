@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.aja.Dto.UsersDeleteResponseDto;
 import com.aja.Dto.UsersRequestDto;
 import com.aja.Dto.UsersResponseDto;
+import com.aja.constant.IdentityProofType;
+import com.aja.entity.Nationality;
 import com.aja.entity.Users;
 import com.aja.repository.UsersRepo;
 import com.aja.service.UsersService;
@@ -33,6 +35,18 @@ public class UserServiceImpl implements UsersService {
 
 		if (userRepository.existsByEmail(user.getEmail())) {
 			return null;
+		}
+
+		// identity type
+		if (user.getNationality() == Nationality.NON_INDIAN) {
+
+			if (user.getIdentityProofType() != IdentityProofType.PASSPORT) {
+				return null;
+			}
+
+			if (user.getIdentityProofNumber() == null || user.getIdentityProofNumber().trim().isEmpty()) {
+				return null;
+			}
 		}
 
 		Users users = new Users();
@@ -72,7 +86,20 @@ public class UserServiceImpl implements UsersService {
 
 		Users users = updateById.get();
 
-		BeanUtils.copyProperties(user, users, "userId", "password", "confirmPassword");
+		// BeanUtils.copyProperties(user, users, "userId", "password",
+		// "confirmPassword");
+
+		if (user.getFullName() != null) {
+			users.setFullName(user.getFullName());
+		}
+
+		if (user.getMobileNo() != null) {
+			users.setMobileNo(user.getMobileNo());
+		}
+
+		if (user.getProfileImage() != null) {
+			users.setProfileImage(user.getProfileImage());
+		}
 
 		Users updated = userRepository.save(users);
 
