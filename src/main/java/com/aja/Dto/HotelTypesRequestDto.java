@@ -1,5 +1,7 @@
 package com.aja.Dto;
 
+import com.aja.constant.Meals;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +10,6 @@ import lombok.Setter;
 public class HotelTypesRequestDto {
 
 	private String htypeName;
-
+	private Meals meals;
 	private Double pricePerday;
 }

@@ -2,16 +2,14 @@ package com.aja.Dto;
  
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import com.aja.entity.IdentityProofType;
-import com.aja.entity.Nationality;
-
+import com.aja.constant.IdentityProofType;
+import com.aja.constant.Nationality; 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
- 
+
 @Getter
 @Setter
 public class UsersResponseDto {

@@ -12,9 +12,6 @@ import com.aja.Dto.PackagesRequestDto;
 import com.aja.Dto.PackagesResponseDto;
 import com.aja.entity.Packages;
 import com.aja.entity.States;
-import com.aja.exceptions.InvalidPackageDataException;
-import com.aja.exceptions.PackageAlreadyExistsException;
-import com.aja.exceptions.PackageNotFoundException;
 import com.aja.repository.PackagesRepo;
 import com.aja.repository.StatesRepo;
 import com.aja.service.PackageService;
@@ -22,46 +19,39 @@ import com.aja.service.PackageService;
 @Service
 public class PackageServiceImpl implements PackageService {
 
-    @Autowired
-    private PackagesRepo packagesRepo;
+	@Autowired
+	private PackagesRepo pRepo;
+	
+	@Autowired
+	private StatesRepo sRepo;
 
     @Autowired
     private StatesRepo statesRepo;
 
-    // ADD PACKAGE
-    @Override
-    public PackagesResponseDto addPackage(PackagesRequestDto dto) {
+	    Packages pack = new Packages();
 
-        if (packagesRepo.existsByPackageNameIgnoreCase(dto.getPackageName())) {
-            throw new PackageAlreadyExistsException(
-                    "Package already exists with name: " + dto.getPackageName());
-        }
+	    // ✅ Copies simple fields INCLUDING imageUrl
+	    BeanUtils.copyProperties(p, pack);
 
-        States state = statesRepo.findById(dto.getStateId())
-                .orElseThrow(() ->
-                        new InvalidPackageDataException("Invalid state id"));
+	    // ✅ Manually map stateId → State entity
+	    if (p.getStateId() != null) {
+	        States state = sRepo.findById(p.getStateId())
+	            .orElseThrow(() -> new RuntimeException("State not found"));
+	        pack.setState(state);
+	    }
 
-        Packages pack = new Packages();
-        pack.setPackageName(dto.getPackageName());
-        pack.setDurationDays(dto.getDurationDays());
-        pack.setAdultPrice(dto.getAdultPrice());
-        pack.setChildPrice(dto.getChildPrice());
-        pack.setFoodPrice(dto.getFoodPrice());
-        pack.setPickupPrice(dto.getPickupPrice());
-        pack.setGstPercentage(dto.getGstPercentage());
-        pack.setState(state);
+	    Packages entity = pRepo.save(pack);
 
-        Packages saved = packagesRepo.save(pack);
+	    PackagesResponseDto pRes = new PackagesResponseDto();
+	    BeanUtils.copyProperties(entity, pRes);
 
-        PackagesResponseDto res = new PackagesResponseDto();
-        BeanUtils.copyProperties(saved, res);
+	    return pRes;
+	}
 
         return res;
     }
 
-    // VIEW ALL PACKAGES (ONLY ACTIVE)
-    @Override
-    public List<PackagesResponseDto> viewPackages() {
+		List<Packages> viewAllPackages = pRepo.findByIsFlagTrue();
 
         List<Packages> packagesList = packagesRepo.findByIsFlagTrue();
         List<PackagesResponseDto> responseList = new ArrayList<>();

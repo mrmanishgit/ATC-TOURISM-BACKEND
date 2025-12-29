@@ -21,19 +21,19 @@ import com.aja.serviceImpl.PlacesServiceImpl;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/place")
+@RequestMapping("/api/place")
 public class PlacesController {
 	@Autowired
 	private PlacesServiceImpl placeImpl;
 
-	@PostMapping
-	public ResponseEntity<PlacesResponseDto> place(@Valid @RequestBody PlacesRequestDto p) {
+	@PostMapping("/create")
+	public ResponseEntity<PlacesResponseDto> place(@RequestBody PlacesRequestDto p) {
 
 		PlacesResponseDto place = placeImpl.addPlace(p);
 		return ResponseEntity.ok(place);
 	}
 
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<PlacesResponseDto>> getAllPlaces() {
 		List<PlacesResponseDto> viewAllPlaces = placeImpl.viewAllPlaces();
 		return ResponseEntity.ok(viewAllPlaces);

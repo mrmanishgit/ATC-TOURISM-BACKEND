@@ -46,7 +46,11 @@ public class HotelTypesServiceImpl implements HotelTypesService {
 		// TODO Auto-generated method stub
 		HotelTypes hotelTypes2 = hotelTypesRepo.findById(id).orElse(null);
 		hotelTypes2.setHtypeName(hotelTypes.getHtypeName());
+
 		hotelTypes2.setMeals(hotelTypes.getMeals());
+
+		hotelTypes2.setMeals(hotelTypes.getMeals());
+
 		return hotelTypesRepo.save(hotelTypes2);
 	}
 

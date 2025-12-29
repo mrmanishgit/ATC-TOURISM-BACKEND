@@ -19,4 +19,8 @@ public class BookingsResponseDto {
 	private String bookingStatus;
 
 	private LocalDateTime createdAt;
+	
+	private Long userId;
+	
+	private Long packageId;
 }

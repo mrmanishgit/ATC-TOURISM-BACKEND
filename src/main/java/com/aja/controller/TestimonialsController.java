@@ -34,6 +34,9 @@ public class TestimonialsController {
 		TestimonialsResponseDto tdto=tServiceImpl.addTestmonial(t);
 		return ResponseEntity.ok(tdto);
 	}
+	
+	
+	
 	@GetMapping("/all")
 	public ResponseEntity<List<TestimonialsResponseDto>> viewAll()
 	{
