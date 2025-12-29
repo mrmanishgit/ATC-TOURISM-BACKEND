@@ -15,9 +15,9 @@ public class PackagesRequestDto {
     private Double pickupPrice;
     private Double gstPercentage;
 
-    // ✅ REQUIRED FOR IMAGE FIX
+    
     private String imageUrl;
 
-    // ✅ ADD THIS (THIS FIXES YOUR ERROR)
+   
     private Long stateId;
 }
