@@ -16,6 +16,7 @@ Image uploads
 It is built using Spring Boot, MySQL, JPA & Maven and runs as an independent backend server.
 
 🛠️ Tech Stack
+```bash
 Technology	Purpose
 Spring Boot	Backend framework
 Spring MVC	REST API handling
@@ -23,13 +24,15 @@ Spring Data JPA	Database ORM
 MySQL	Database
 Lombok	Reduces boilerplate code
 Maven	Build & dependency management
+```
 ⚙️ Installation & Setup
 1️⃣ Clone the repository
+```bash
 git clone https://github.com/mrmanishgit/ATC-TOURISM-BACKEND.git
 cd ATC-TOURISM-BACKEND
-
+```
 2️⃣ Update database configuration
-
+```bash
 In src/main/resources/application.properties:
 
 spring.datasource.url=jdbc:mysql://localhost:3306/aja_tourism
@@ -38,22 +41,26 @@ spring.datasource.password=YOUR_MYSQL_PASSWORD
 
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
-
+```
 ▶️ Run the Project
 Run with Maven
+```bash
 mvn spring-boot:run
-
+```
 Build JAR
 mvn clean package
+```bash
 java -jar target/AjaTourismCorporation-0.0.1-SNAPSHOT.jar
-
+```
 🌍 Default Server URL
+```bash
 http://localhost:8080
-
+```
 ❗If 8080 is busy, change port:
-server.port=9090
+server.port=8081
 
 📁 Folder Structure
+```bash
 ATC-TOURISM-BACKEND/
 ├── src/
 │   ├── main/java/com/aja/
@@ -63,7 +70,7 @@ ATC-TOURISM-BACKEND/
 │   │       └── static/uploads/
 ├── pom.xml
 └── README.md
-
+```
 🧩 API Testing (Optional)
 
 Use Postman / Thunder Client / Browser to test API endpoints.
