@@ -1,4 +1,3 @@
-
 package com.aja.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +10,8 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-		registry.addResourceHandler("/uploads/**").addResourceLocations("file:./uploads/"); // <-- Correct path
+		registry
+				.addResourceHandler("/uploads/**")
+				.addResourceLocations("file:./uploads/");
 	}
 }
