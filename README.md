@@ -97,6 +97,29 @@ Issue	Fix
 Port 8080 already in use	Stop process or set server.port=9090
 Database connection error	Check MySQL username & password
 App fails to start	Ensure JDK 21 installed & JAVA_HOME set
+
+
+🌐 Live Project Links
+
+🚀 Frontend (Vercel – Live UI)
+🔗 https://atc-tourism-frontend.vercel.app/
+
+🛠️ Backend API (Render)
+🔗 https://aja-tourism-corporation.onrender.com/
+
+🗄️ Database (Railway – PostgreSQL/MySQL)
+🔗 https://railway.com/project/568ac9ce-6763-4fe5-ac59-672eff7818a2?environmentId=47855gf-gfhh7-g4
+
+🔗 Full Stack Architecture
+```bash
+User (Browser)
+   ↓
+Frontend (React + Vite) – Vercel
+   ↓ REST API
+Backend (Spring Boot / Node) – Render
+   ↓
+Database (Railway Cloud DB)
+```
 🤝 Author
 
 Manish Maharana
